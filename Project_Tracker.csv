@@ -1,0 +1,55 @@
+ID,Member,Task,Deliverable / output,Due date,Status,Notes
+T01,M1,"Create repo skeleton: src/, data/, figs/, results/, report/, notebook.ipynb, requirements.txt",Repo with folder structure,2026-10-26,Done,
+T02,M1,Write src/ modules with the agreed interfaces (config.py and all module signatures),"src/*.py drafted with docstrings citing papers",2026-10-27,Done,Drafted but not yet run end to end; owners test their own modules
+T03,M2,Download and cache US and India adjusted closes from Yahoo Finance,"data/raw/us_prices.csv, india_prices.csv, data/raw/README.md",2026-10-27,Done,"86 tickers, 2010-01-04 to 2026-09-29 (US), 2012-01-02 to 2026-09-29 (India)"
+T04,M2,Read Gatev et al. (2006) and Engle & Granger (1987); 5-line notes,Notes in notebook section 2 markdown,2026-10-28,Not started,
+T05,M3,Read Yu (2012); check the OU derivation in report section 2,Derivation verified line by line,2026-10-28,Not started,
+T06,M4,Read Avellaneda & Lee (2010) and Bertram (2010); 5-line notes,Notes in notebook section 6 markdown,2026-10-28,Not started,
+T07,M5,Read Krauss (2017) and Do & Faff (2010); write the literature paragraph,Report section 1 literature paragraph,2026-10-28,Not started,
+T08,M2,"Test src/data.py: load_prices, cleaning, jump report",Notebook section 2 runs; data summary table,2026-10-29,In progress,Download already ran successfully
+T09,M2,Test src/cointegration.py: ADF and Engle-Granger both directions (MacKinnon p-values),Notebook section 5 runs on one window,2026-10-30,In progress,Draft in src/cointegration.py
+T10,M3,Test src/ou.py: simulate_ou (exact and Euler) and fit_ou,Notebook section 3 figure: exact vs Euler path,2026-10-29,In progress,Draft in src/ou.py
+T11,M3,Check fit_ou recovers known parameters (kappa = 5; 25; 50),Short check cell in notebook section 3,2026-10-30,Not started,
+T12,M4,Proposal figure: KO/PEP and EWA/EWC spread with OU fit and s-score bands,figs/fig_proposal_spread.eps,2026-10-30,Not started,Notebook section 6
+T13,M2,Run the Engle-Granger screen on the latest formation window,Count of 196 US pairs passing at 5% plus top-10 list for the proposal,2026-10-30,Not started,Notebook section 5
+T14,M1,Test src/backtest.py on one pair with fixed bands and one-day lag,Notebook section 7 prints daily P&L,2026-10-30,In progress,Draft in src/backtest.py
+T15,M3,Write the proposal maths paragraph,"OU, ADF as a test of kappa = 0, Engle-Granger in under 200 words",2026-10-29,Not started,Text is in the project plan doc
+T16,M5,"Assemble and edit the proposal: fill progress numbers, names and IDs",Proposal PDF ready for sign-off,2026-10-30,Not started,Draft is in the project plan doc
+T17,M1,Submit the proposal,Confirmation in group chat,2026-10-31,Not started,Deadline 31 Oct
+T18,M2,"Test src/selection.py: within-sector pairs, EG filter, OU filters, top-K",run_selection() cached for US and India,2026-11-03,In progress,"Half-life 2-63 days, at least 12 crossings a year, K = 20"
+T19,M2,Check the distance-method baseline S0 (Gatev et al. 2006),S0 row in Table 1,2026-11-05,In progress,select_distance() drafted
+T20,M4,Test z-score (S1) and s-score (S2) rules in src/strategies.py,Unit check on a toy spread,2026-11-03,In progress,Draft in src/strategies.py
+T21,M4,Check bertram_bands() against the paper,Notebook section 6 check cell,2026-11-05,In progress,Draft in src/ou.py
+T22,M1,"Walk-forward engine: 252/126-day windows, frozen parameters, costs",simulate() returns daily returns and trades log,2026-11-04,In progress,Draft in src/backtest.py
+T23,M1,"Test src/metrics.py: Sharpe with Lo SE, drawdown, beta, Newey-West t",Metrics on a known series,2026-11-04,In progress,Draft in src/metrics.py
+T24,M1,Look-ahead check: signal at close t executed at close t+1,Check cell in notebook section 7,2026-11-04,Not started,
+T25,M1,Integration check: one pair end to end,"Selection, signals, backtest, metrics on one window; posted in chat",2026-11-04,Not started,Gate
+T26,M3,"E1: OU estimator Monte Carlo (bias and RMSE vs window, exact vs Euler)",Notebook section 4 + figs/fig_e1_ou_estimation.eps,2026-11-05,Not started,
+T27,M1,E4: synthetic cointegrated pair through the full pipeline,Notebook section 7 + figs/fig_e4_synthetic.eps,2026-11-06,Not started,
+T28,M4,E5 first run: S1 and S2 on the US universe at 10 bp,First metrics table,2026-11-06,Not started,Notebook section 8
+T29,M5,Check plots.py house style (PNG + EPS export),Every figure uses savefig(),2026-11-05,Done,Drafted in src/plots.py
+T30,M5,Report skeleton with page budget and bibliography,report/main.tex and report/refs.bib,2026-11-06,Done,Each section tagged with its owner
+T31,M3,E2: ADF power heatmap and Engle-Granger size test,Notebook section 4 + figs/fig_e2_adf_power.eps,2026-11-07,Not started,
+T32,M1,Must-tier review; freeze design choices on 2010-2021,Decision log in README,2026-11-07,Not started,Gate
+T33,M4,E3: Bertram E[T] vs Monte Carlo; optimal band vs cost,Notebook section 6 + figs/fig_e3_bertram.eps,2026-11-09,Not started,
+T34,M4,E5 final: S0-S3 headline table and cumulative-return figure,Table 1 + figs/fig_e5_cumulative.eps,2026-11-09,Not started,Show 2022-2026 test block separately
+T35,M5,E6: transaction-cost sweep and break-even costs,Notebook section 9 + figs/fig_e6_costs.eps,2026-11-09,Not started,
+T36,M5,"E7: threshold grid, formation length, K, stop-loss",Notebook section 10 + figs/fig_e7_heatmap.eps,2026-11-10,Not started,
+T37,M2,E8 data: run the India universe through the pipeline,India results for S0-S3 at 15 bp,2026-11-09,Not started,
+T38,M5,"E8: market, sector and sub-period table",Table 2 in notebook section 11,2026-11-10,Not started,
+T39,M2,E9: cointegration persistence and P&L by formation ADF decile,Notebook section 12 + figs/fig_e9_persistence.eps,2026-11-10,Not started,
+T40,M1,Significance on headline numbers; notebook runs top to bottom,Clean Restart & Run All,2026-11-11,Not started,
+T41,M4,Stretch E10: Kalman-filter hedge ratio,Extra row in Table 1,2026-11-10,Not started,Stretch; drafted in src/strategies.py
+T42,M3,Stretch: Leung & Li optimal stopping bands,Extra row in Table 1,2026-11-10,Not started,Stretch; cut first if behind
+T43,M1,"Code freeze: README, comments, docstrings citing papers",Tagged release v1.0,2026-11-11,Not started,Gate
+T44,M3,"Report section 2: mathematical model, plus derivations appendix",1 page in report/main.tex,2026-11-12,In progress,Equations pre-filled in main.tex
+T45,M2,Report section 3: data and methodology,Half a page in report/main.tex,2026-11-12,In progress,Pre-filled in main.tex
+T46,M5,"Report sections 1, 4, 5 and final edit to 4 pages",Complete report PDF,2026-11-13,Not started,
+T47,M4,Report: trading rules and Bertram paragraph; Fig 3 caption,Paragraph in section 2,2026-11-12,In progress,Pre-filled in main.tex
+T48,M5,Slides: 12-slide deck from report figures,Deck with speaker order and timings,2026-11-13,Not started,
+T49,M3,Math slides 3-4 and backup derivation slides,Slides 3-4 + 3 backup slides,2026-11-13,Not started,
+T50,M2,Verify every reference and dataset citation in the report,Checked refs.bib,2026-11-13,Not started,DOIs already checked against Crossref on 26 Oct
+T51,All,Cross-training: each member teaches their slides,Everyone can answer Q&A bank questions 1-8,2026-11-12,Not started,
+T52,All,Mock viva 1 with timer and Q&A bank,List of weak answers to fix,2026-11-13,Not started,
+T53,All,Mock viva 2 and final proof-read,Final report and slides,2026-11-14,Not started,
+T54,M1,"Final submission: code, report PDF, slides",Confirmation in group chat,2026-11-14,Not started,Deadline 15 Nov; target 14 Nov
