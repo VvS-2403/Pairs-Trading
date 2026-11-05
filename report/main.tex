@@ -30,7 +30,7 @@ MAC F244, Semester I, 2026--27}
 \maketitle
 
 % ----------------------------------------------------------------------------
-% OWNER: M5 (about 1/3 page)
+% OWNER: M2 (about 1/3 page)
 \section{Introduction}
 Pairs trading bets that the price gap between two related stocks returns to its
 mean. It works only if that gap really is mean-reverting and if it is traded at the
@@ -43,11 +43,13 @@ mean-reverting spreads, (ii) how well does an OU model describe them and how
 accurately can it be estimated, and (iii) do OU-based rules beat a simple distance
 rule after transaction costs, across markets and periods?
 
-\todo{M5: literature paragraph, four sentences, from \citet{gatev2006}, \citet{krauss2017},
+\todo{M2: literature paragraph, four sentences, from \citet{gatev2006}, \citet{krauss2017},
 \citet{rad2016} and \citet{dofaff2010} (task T07).}
 
 % ----------------------------------------------------------------------------
-% OWNER: M3 (OU model, ADF, Engle-Granger); M4 (trading rules, Bertram). About 1 page.
+% OWNERS: M3 (spread, OU model, estimation), M4 (ADF, trading rules), M2 (Engle-Granger),
+% M5 (Bertram bands), M1 (position P&L). About 1 page.
+% OWNER: M3 from here to the ADF paragraph
 \section{Mathematical model}
 
 \paragraph{Spread.} For a pair $(A,B)$ with log prices $a_t=\ln P^A_t$ and
@@ -86,6 +88,7 @@ Euler--Maruyama gives $b\approx 1-\kappa\Delta$; because the noise in \eqref{eq:
 additive, Milstein's correction vanishes and Milstein coincides with Euler--Maruyama
 \citep{kloeden1992}.
 
+% OWNER: M4
 \paragraph{ADF is a test of $\kappa=0$.} Subtracting $X_{t-1}$ from \eqref{eq:ar1}
 gives the ADF regression \citep{dickeyfuller1979,saiddickey1984}
 \begin{equation}
@@ -96,6 +99,7 @@ $H_0:\gamma=0$ is exactly $H_0:\kappa=0$ (a random walk, no mean reversion), aga
 $H_1:\gamma<0$, i.e.\ $\kappa>0$. The $t$-statistic of $\gamma$ follows the
 Dickey--Fuller distribution; the lag order $p$ is chosen by AIC.
 
+% OWNER: M2
 \paragraph{Engle--Granger cointegration.} Both $a_t$ and $b_t$ are $I(1)$; we regress
 $a_t=\mu+\beta b_t+u_t$ and test $\hat u_t$ for a unit root \citep{englegranger1987}.
 Because $\hat\beta$ is fitted to make $\hat u_t$ look stationary, plain ADF critical
@@ -103,7 +107,7 @@ values over-reject (the spurious regression of \citealp{grangernewbold1974}); we
 Engle--Granger critical values \citep{mackinnon2010}. The test depends on which stock
 is the regressand, so a pair is kept only if both directions reject at 5\%.
 
-% OWNER: M4 from here to the end of Section 2
+% OWNER: M4 (s-score and distance/z-score rules); M5 (Bertram, from "For the optimal bands")
 \paragraph{Trading rules.} The s-score of \citet{avellaneda2010} is
 $s_t=(X_t-\hat\theta)/\sigma_{eq}$: open long when $s<-1.25$, open short when $s>1.25$,
 close a long when $s>-0.50$ and a short when $s<0.75$. For the optimal bands of
@@ -118,6 +122,7 @@ length and the expected return per unit time
 With symmetric bands $a=-m$ we maximise $\mu$ over $m$ numerically.
 \todo{M4: one sentence on the distance rule of \citet{gatev2006} and the z-score rule.}
 
+% OWNER: M1
 \paragraph{Position P\&L.} Holding one unit of spread means \$1 long $A$ and \$$\beta$
 short $B$; the daily return on gross capital is $(r^A_t-\beta r^B_t)/(1+|\beta|)$,
 minus costs on every trade.
@@ -160,12 +165,14 @@ standard error of \citet{lo2002}, Newey--West $t$-statistic of the mean daily re
 \citep{neweywest1987}, maximum drawdown, hit rate and market beta.
 
 % ----------------------------------------------------------------------------
-% OWNER: M5 (editor) with M3 (simulation), M1/M4 (backtest), M2 (persistence). About 1 2/3 pages.
+% OWNERS: each member writes the results of their own experiments; M5 edits the section to fit.
+% M3: E1, E6, E7, E8 (US)   M4: E2a, E5   M2: E2b, E9   M5: E3, E8 (India), E10   M1: E4, Table 1 text
+% About 1 2/3 pages.
 \section{Results}\label{sec:results}
 
-\paragraph{Simulation study.} \todo{M3: E1 bias of $\hat\kappa$ at 252 days; E2: which
-half-lives a 12-month window detects, and the actual size of the naive residual test
-versus Engle--Granger (from results/e2\_size.csv).}
+\paragraph{Simulation study.} \todo{M3: E1 bias of $\hat\kappa$ at 252 days. M4: E2a, which
+half-lives a 12-month window detects. M2: E2b, the actual size of the naive residual test
+versus Engle--Granger (from results/e2\_size.csv). M5: E3, Bertram's formula vs simulation.}
 
 \begin{figure}[h]
 \centering
@@ -199,13 +206,14 @@ S3 Bertram & \todo{} & & & & & \\
 Right: Sharpe ratio against cost per leg \todo{break-even costs}.}
 \end{figure}
 
-\paragraph{Robustness.} \todo{M5: E7 sensitivity, E8 India / sectors / sub-periods
-(Table 2), M2: E9 share of pairs still cointegrated out of sample.}
+\paragraph{Robustness.} \todo{M3: E6 break-even costs, E7 sensitivity, E8 US sectors and
+sub-periods (Table 2). M5: E8 India, E10 Kalman. M2: E9 share of pairs still cointegrated
+out of sample.}
 
 % ----------------------------------------------------------------------------
-% OWNER: M5. About 1/3 page.
+% OWNER: M3. About 1/3 page.
 \section{Conclusion}
-\todo{M5: answer the three questions with numbers; limitations: survivorship bias,
+\todo{M3: answer the three questions with numbers; limitations: survivorship bias,
 fixed $\beta$ within a window, daily closes; future work: Kalman hedge ratio,
 \citet{leungli2015} optimal stopping.}
 

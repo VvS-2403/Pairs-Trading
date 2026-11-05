@@ -16,40 +16,44 @@ T14,M1,Test src/backtest.py on one pair with fixed bands and one-day lag,Noteboo
 T15,M3,Write the proposal maths paragraph,"OU, ADF as a test of kappa = 0, Engle-Granger in under 200 words",2026-10-29,Not started,Text is in the project plan doc
 T16,M5,"Assemble and edit the proposal: fill progress numbers, names and IDs",Proposal PDF ready for sign-off,2026-10-30,Not started,Draft is in the project plan doc
 T17,M1,Submit the proposal,Confirmation in group chat,2026-10-31,Not started,Deadline 31 Oct
-T18,M2,"Test src/selection.py: within-sector pairs, EG filter, OU filters, top-K",run_selection() cached for US and India,2026-11-03,In progress,"Half-life 2-63 days, at least 12 crossings a year, K = 20"
-T19,M2,Check the distance-method baseline S0 (Gatev et al. 2006),S0 row in Table 1,2026-11-05,In progress,select_distance() drafted
-T20,M4,Test z-score (S1) and s-score (S2) rules in src/strategies.py,Unit check on a toy spread,2026-11-03,In progress,Draft in src/strategies.py
-T21,M4,Check bertram_bands() against the paper,Notebook section 6 check cell,2026-11-05,In progress,Draft in src/ou.py
-T22,M1,"Walk-forward engine: 252/126-day windows, frozen parameters, costs",simulate() returns daily returns and trades log,2026-11-04,In progress,Draft in src/backtest.py
-T23,M1,"Test src/metrics.py: Sharpe with Lo SE, drawdown, beta, Newey-West t",Metrics on a known series,2026-11-04,In progress,Draft in src/metrics.py
-T24,M1,Look-ahead check: signal at close t executed at close t+1,Check cell in notebook section 7,2026-11-04,Not started,
-T25,M1,Integration check: one pair end to end,"Selection, signals, backtest, metrics on one window; posted in chat",2026-11-04,Not started,Gate
-T26,M3,"E1: OU estimator Monte Carlo (bias and RMSE vs window, exact vs Euler)",Notebook section 4 + figs/fig_e1_ou_estimation.eps,2026-11-05,Not started,
-T27,M1,E4: synthetic cointegrated pair through the full pipeline,Notebook section 7 + figs/fig_e4_synthetic.eps,2026-11-06,Not started,
-T28,M4,E5 first run: S1 and S2 on the US universe at 10 bp,First metrics table,2026-11-06,Not started,Notebook section 8
-T29,M5,Check plots.py house style (PNG + EPS export),Every figure uses savefig(),2026-11-05,Done,Drafted in src/plots.py
-T30,M5,Report skeleton with page budget and bibliography,report/main.tex and report/refs.bib,2026-11-06,Done,Each section tagged with its owner
-T31,M3,E2: ADF power heatmap and Engle-Granger size test,Notebook section 4 + figs/fig_e2_adf_power.eps,2026-11-07,Not started,
-T32,M1,Must-tier review; freeze design choices on 2010-2021,Decision log in README,2026-11-07,Not started,Gate
-T33,M4,E3: Bertram E[T] vs Monte Carlo; optimal band vs cost,Notebook section 6 + figs/fig_e3_bertram.eps,2026-11-09,Not started,
-T34,M4,E5 final: S0-S3 headline table and cumulative-return figure,Table 1 + figs/fig_e5_cumulative.eps,2026-11-09,Not started,Show 2022-2026 test block separately
-T35,M5,E6: transaction-cost sweep and break-even costs,Notebook section 9 + figs/fig_e6_costs.eps,2026-11-09,Not started,
-T36,M5,"E7: threshold grid, formation length, K, stop-loss",Notebook section 10 + figs/fig_e7_heatmap.eps,2026-11-10,Not started,
-T37,M2,E8 data: run the India universe through the pipeline,India results for S0-S3 at 15 bp,2026-11-09,Not started,
-T38,M5,"E8: market, sector and sub-period table",Table 2 in notebook section 11,2026-11-10,Not started,
-T39,M2,E9: cointegration persistence and P&L by formation ADF decile,Notebook section 12 + figs/fig_e9_persistence.eps,2026-11-10,Not started,
-T40,M1,Significance on headline numbers; notebook runs top to bottom,Clean Restart & Run All,2026-11-11,Not started,
-T41,M4,Stretch E10: Kalman-filter hedge ratio,Extra row in Table 1,2026-11-10,Not started,Stretch; drafted in src/strategies.py
-T42,M3,Stretch: Leung & Li optimal stopping bands,Extra row in Table 1,2026-11-10,Not started,Stretch; cut first if behind
-T43,M1,"Code freeze: README, comments, docstrings citing papers",Tagged release v1.0,2026-11-11,Not started,Gate
-T44,M3,"Report section 2: mathematical model, plus derivations appendix",1 page in report/main.tex,2026-11-12,In progress,Equations pre-filled in main.tex
-T45,M2,Report section 3: data and methodology,Half a page in report/main.tex,2026-11-12,In progress,Pre-filled in main.tex
-T46,M5,"Report sections 1, 4, 5 and final edit to 4 pages",Complete report PDF,2026-11-13,Not started,
-T47,M4,Report: trading rules and Bertram paragraph; Fig 3 caption,Paragraph in section 2,2026-11-12,In progress,Pre-filled in main.tex
-T48,M5,Slides: 12-slide deck from report figures,Deck with speaker order and timings,2026-11-13,Not started,
-T49,M3,Math slides 3-4 and backup derivation slides,Slides 3-4 + 3 backup slides,2026-11-13,Not started,
-T50,M2,Verify every reference and dataset citation in the report,Checked refs.bib,2026-11-13,Not started,DOIs already checked against Crossref on 26 Oct
-T51,All,Cross-training: each member teaches their slides,Everyone can answer Q&A bank questions 1-8,2026-11-12,Not started,
-T52,All,Mock viva 1 with timer and Q&A bank,List of weak answers to fix,2026-11-13,Not started,
-T53,All,Mock viva 2 and final proof-read,Final report and slides,2026-11-14,Not started,
-T54,M1,"Final submission: code, report PDF, slides",Confirmation in group chat,2026-11-14,Not started,Deadline 15 Nov; target 14 Nov
+T18,M1,"Theory: walk-forward protocol, look-ahead bias, Sharpe-ratio SE (Lo 2002), Newey-West t-statistic",1-page note for the viva,2026-11-07,Not started,"Theory, 2 h"
+T19,M1,"Walk-forward engine: 252/126-day windows, frozen parameters, costs (src/backtest.py)",simulate() returns daily returns and trades log,2026-11-06,In progress,"Code, 6 h"
+T20,M1,"Test src/metrics.py: Sharpe with Lo SE, drawdown, beta, Newey-West t",Metrics on a known series,2026-11-06,In progress,"Code, 4 h"
+T21,M1,Look-ahead check: signal at close t executed at close t+1,Check cell in notebook section 7,2026-11-06,Not started,"Code, 2 h"
+T22,M1,Integration check: one pair end to end,"Selection, signals, backtest, metrics on one window; posted in chat",2026-11-06,Not started,"Code, 1 h. Gate"
+T23,M1,E4: synthetic cointegrated pair through the full pipeline,Notebook section 7 + figs/fig_e4_synthetic.eps,2026-11-08,Not started,"Code, 3 h"
+T24,M1,"Report section 3: walk-forward protocol and evaluation; results paragraph for E4 and Table 1",Text in report/main.tex,2026-11-12,Not started,"Theory, 4 h"
+T25,M1,"Notebook Restart & Run All, tag release v1.0",Clean run; tagged commit,2026-11-11,Not started,"Other, 2 h. Code freeze gate"
+T26,M1,"Final submission: code, report PDF, slides",Confirmation in group chat,2026-11-14,Not started,"Other, 1 h. Deadline 15 Nov"
+T27,M2,"Theory: cointegration, Engle-Granger two-step test, spurious regression, multiple testing (Benjamini-Hochberg)",1-page note for the viva,2026-11-07,Not started,"Theory, 3 h"
+T28,M2,"Test src/selection.py: within-sector pairs, EG filter, OU filters, top-K",run_selection() works on US,2026-11-07,In progress,"Code, 5 h"
+T29,M2,Check the distance-method baseline S0 (Gatev et al. 2006),S0 row in Table 1,2026-11-07,In progress,"Code, 3 h"
+T30,M2,E2b: size of the residual test (plain ADF vs Engle-Granger) on independent random walks,Notebook section 4 + results/e2_size.csv,2026-11-08,Not started,"Code, 2 h"
+T31,M2,E8 data: run the India universe through pair selection,run_selection('india') cached,2026-11-09,Not started,"Code, 3 h"
+T32,M2,E9: cointegration persistence and P&L by formation ADF decile,Notebook section 12 + figs/fig_e9_persistence.eps,2026-11-10,Not started,"Code, 4 h"
+T33,M2,"Report section 1 (introduction and literature), section 2 Engle-Granger paragraph, section 3 data",Text in report/main.tex,2026-11-12,Not started,"Theory, 3 h"
+T34,M2,Verify every reference and dataset citation in the report,Checked refs.bib,2026-11-13,Not started,"Other, 1 h"
+T35,M3,"Theory: OU SDE, Ito solution, exact discretisation and MLE, half-life, Euler vs Milstein",1-page note for the viva + backup derivation slides,2026-11-07,In progress,"Theory, 3 h. Equations already in main.tex"
+T36,M3,Check fit_ou and simulate_ou (exact vs Euler) on known parameters,Notebook section 3,2026-11-06,In progress,"Code, 2 h"
+T37,M3,"E1: OU estimator Monte Carlo (bias and RMSE vs window, exact vs Euler)",Notebook section 4 + figs/fig_e1_ou_estimation.eps,2026-11-08,Not started,"Code, 5 h"
+T38,M3,E6: transaction-cost sweep and break-even costs,Notebook section 9 + figs/fig_e6_costs.eps,2026-11-09,Not started,"Code, 3 h"
+T39,M3,"E7: threshold grid, formation length, K, stop-loss",Notebook section 10 + figs/fig_e7_heatmap.eps,2026-11-10,Not started,"Code, 4 h"
+T40,M3,E8: US sector and sub-period tables,Table 2 in notebook section 11,2026-11-10,Not started,"Code, 3 h"
+T41,M3,"Report section 2 OU paragraphs, E1/E6/E7 results, section 5 conclusion",Text in report/main.tex,2026-11-12,Not started,"Theory, 4 h"
+T42,M4,"Theory: ADF test (unit root, Dickey-Fuller distribution, augmentation, critical values, power)",1-page note for the viva,2026-11-07,Not started,"Theory, 3 h"
+T43,M4,Test z-score (S1) and s-score (S2) rules in src/strategies.py,Check on a toy spread,2026-11-07,In progress,"Code, 4 h"
+T44,M4,E2a: ADF power heatmap over half-life and window length,Notebook section 4 + figs/fig_e2_adf_power.eps,2026-11-08,Not started,"Code, 3 h"
+T45,M4,E5 first run: S1 and S2 on the US universe at 10 bp,First metrics table,2026-11-08,Not started,"Code, 3 h"
+T46,M4,E5 final: S0-S3 headline table and cumulative-return figure,Table 1 + figs/fig_e5_cumulative.eps,2026-11-10,Not started,"Code, 4 h. Show 2022-2026 test block separately"
+T47,M4,"Report section 2 ADF paragraph and trading rules S0-S2; E2a and E5 interpretation",Text in report/main.tex,2026-11-12,Not started,"Theory, 3 h"
+T48,M4,Assemble the 12-slide deck from everyone's slides,Deck with speaker order and timings,2026-11-13,Not started,"Other, 3 h"
+T49,M5,"Theory: Bertram (2010) first-passage times (backward equation, erfi formula) and the Kalman filter",1-page note for the viva,2026-11-07,Not started,"Theory, 3 h"
+T50,M5,Check bertram_bands() and bertram_cycle_time() against the paper,Notebook section 6 check cell,2026-11-07,In progress,"Code, 4 h"
+T51,M5,E3: Bertram E[T] vs Monte Carlo; optimal band vs cost,Notebook section 6 + figs/fig_e3_bertram.eps,2026-11-09,Not started,"Code, 4 h"
+T52,M5,E8: India results table for S0-S3 at 15 bp,Table in notebook section 11,2026-11-10,Not started,"Code, 3 h"
+T53,M5,Stretch E10: Kalman-filter hedge ratio,Extra row in Table 1,2026-11-10,Not started,"Code, 5 h. Stretch; cut first if behind"
+T54,M5,"Report section 2 Bertram paragraph, E3/E8/E10 results; final edit of the whole report to 4 pages",Complete report PDF,2026-11-13,Not started,"Theory, 3 h"
+T55,All,Each member: own 2-3 slides and answers to the Q&A bank questions on their topic,Slides sent to M4,2026-11-12,Not started,"Other, 1 h each. Viva about 3.5 min each"
+T56,All,Cross-training: each member teaches their slides,Everyone can answer Q&A bank questions 1-8,2026-11-12,Not started,"Other, 2 h each"
+T57,All,Mock viva 1 with timer and Q&A bank,List of weak answers to fix,2026-11-13,Not started,"Other, 2 h each"
+T58,All,Mock viva 2 and final proof-read,Final report and slides,2026-11-14,Not started,"Other, 2 h each"
