@@ -17,7 +17,7 @@
 \graphicspath{{../figs/}}
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
 % \fig{name}{width}: shows the figure once notebook.ipynb has written figs/name.eps
-\newcommand{\fig}[2]{\IfFileExists{../figs/#1.eps}{\includegraphics[width=#2\linewidth]{#1}}{\fbox{\parbox{#2\linewidth}{\centering\vspace{1.5cm}figure #1 pending\vspace{1.5cm}}}}}
+\newcommand{\fig}[2]{\IfFileExists{../figs/#1.eps}{\includegraphics[width=#2\linewidth]{#1}}{\fbox{\parbox{#2\linewidth}{\centering\vspace{1.5cm}figure \detokenize{#1} pending\vspace{1.5cm}}}}}
 \newcommand{\erfi}{\operatorname{erfi}}
 
 \title{Pairs Trading with Mean-Reverting Stochastic Processes:\\
@@ -139,6 +139,10 @@ Signals at the close of day $t$ are executed at the close of $t+1$, open positio
 closed at the end of the window, and costs are 10\,bp (US) or 15\,bp (India) per leg
 per transaction. Thresholds are taken from the papers and never tuned; design choices
 were frozen on 2010--2021 and 2022--2026 is reported as an untouched test block.
+Every input to a trade is known before it is placed; a unit test scrambles all prices
+after a date and confirms that no earlier return changes. Re-estimating $\beta$ and the
+OU parameters on the trading window instead (look-ahead) would raise the s-score Sharpe
+ratio from about 0 to 3.6 on our US data, which shows why this discipline matters.
 
 \begin{table}[h]
 \centering\small
@@ -155,9 +159,13 @@ S3 & OU optimal bands \citep{bertram2010} & as S1 & Maximise $\mu(-m,m)$ at cost
 \caption{Strategies compared under one protocol.}
 \end{table}
 
-\paragraph{Evaluation.} Annualised return and volatility, Sharpe ratio with the
-standard error of \citet{lo2002}, Newey--West $t$-statistic of the mean daily return
-\citep{neweywest1987}, maximum drawdown, hit rate and market beta.
+\paragraph{Evaluation.} Returns are on committed capital ($K$ equal slots; idle slots
+earn 0). We report annualised return and volatility, the Sharpe ratio with the IID
+standard error of \citet{lo2002}, the Newey--West $t$-statistic of the mean daily return
+\citep{neweywest1987} with the lag rule of \citet{neweywest1994}, maximum drawdown, hit
+rate and market beta. Pairs returns are autocorrelated, so whether an OU rule beats the
+distance rule is tested on the Sharpe difference with a circular block bootstrap
+\citep{politisromano1992,ledoitwolf2008} and Holm's \citeyearpar{holm1979} correction for the three comparisons.
 
 % ----------------------------------------------------------------------------
 % OWNER: M5 (editor) with M3 (simulation), M1/M4 (backtest), M2 (persistence). About 1 2/3 pages.
@@ -172,6 +180,25 @@ versus Engle--Granger (from results/e2\_size.csv).}
 \fig{fig_e1_ou_estimation}{0.48}\hfill\fig{fig_e2_adf_power}{0.48}
 \caption{Left: relative bias of $\hat\kappa$ against window length \todo{finding}.
 Right: ADF rejection rate over half-life and window length \todo{finding}.}
+\end{figure}
+
+\paragraph{Synthetic pair (E4).} A pair with a known OU spread ($\kappa=25$, half-life 7
+days, $\sigma_{eq}=0.03$, $\beta=1.2$, 5\,bp) is run through the pipeline 200 times
+(Figure~\ref{fig:e4}). Bertram's formula predicts 24.2\% a year and a fine-grid
+simulation gives 24.3\%, which validates the P\&L accounting. The full pipeline earns
+12.7\% (SE 0.2\%). Daily monitoring and the one-day lag cost 3.3 points, window resets
+0.5, estimated OU parameters 1.0 (despite a 24\% upward bias in $\hat\kappa$), the
+estimated hedge ratio 2.3 and pair selection 4.5: Engle--Granger finds this truly
+cointegrated pair in only 74\% of windows. Even a perfect OU pair earns about half its
+theoretical return under realistic trading, and hedge-ratio error costs more than OU
+parameter error.
+
+\begin{figure}[h]
+\centering
+\fig{fig_e4_synthetic}{0.62}
+\caption{E4: annual return of Bertram's bands on a synthetic OU pair as each friction is
+added (mean of 200 pairs, $\pm 2$ SE). The dashed line is the theoretical return.}
+\label{fig:e4}
 \end{figure}
 
 \paragraph{Headline backtest.} \todo{M4/M1: Table 1 and Figure 2, which rule wins and

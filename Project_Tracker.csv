@@ -12,7 +12,7 @@ T10,M3,Test src/ou.py: simulate_ou (exact and Euler) and fit_ou,Notebook section
 T11,M3,Check fit_ou recovers known parameters (kappa = 5; 25; 50),Short check cell in notebook section 3,2026-10-30,Not started,
 T12,M4,Proposal figure: KO/PEP and EWA/EWC spread with OU fit and s-score bands,figs/fig_proposal_spread.eps,2026-10-30,Not started,Notebook section 6
 T13,M2,Run the Engle-Granger screen on the latest formation window,Count of 196 US pairs passing at 5% plus top-10 list for the proposal,2026-10-30,Not started,Notebook section 5
-T14,M1,Test src/backtest.py on one pair with fixed bands and one-day lag,Notebook section 7 prints daily P&L,2026-10-30,In progress,Draft in src/backtest.py
+T14,M1,Test src/backtest.py on one pair with fixed bands and one-day lag,Notebook section 7 prints daily P&L,2026-10-30,Done,Done 9 Nov: 13 engine tests in tests/test_backtest.py; notebook section 7
 T15,M3,Write the proposal maths paragraph,"OU, ADF as a test of kappa = 0, Engle-Granger in under 200 words",2026-10-29,Not started,Text is in the project plan doc
 T16,M5,"Assemble and edit the proposal: fill progress numbers, names and IDs",Proposal PDF ready for sign-off,2026-10-30,Not started,Draft is in the project plan doc
 T17,M1,Submit the proposal,Confirmation in group chat,2026-10-31,Not started,Deadline 31 Oct
@@ -20,12 +20,12 @@ T18,M2,"Test src/selection.py: within-sector pairs, EG filter, OU filters, top-K
 T19,M2,Check the distance-method baseline S0 (Gatev et al. 2006),S0 row in Table 1,2026-11-05,In progress,select_distance() drafted
 T20,M4,Test z-score (S1) and s-score (S2) rules in src/strategies.py,Unit check on a toy spread,2026-11-03,In progress,Draft in src/strategies.py
 T21,M4,Check bertram_bands() against the paper,Notebook section 6 check cell,2026-11-05,In progress,Draft in src/ou.py
-T22,M1,"Walk-forward engine: 252/126-day windows, frozen parameters, costs",simulate() returns daily returns and trades log,2026-11-04,In progress,Draft in src/backtest.py
-T23,M1,"Test src/metrics.py: Sharpe with Lo SE, drawdown, beta, Newey-West t",Metrics on a known series,2026-11-04,In progress,Draft in src/metrics.py
-T24,M1,Look-ahead check: signal at close t executed at close t+1,Check cell in notebook section 7,2026-11-04,Not started,
-T25,M1,Integration check: one pair end to end,"Selection, signals, backtest, metrics on one window; posted in chat",2026-11-04,Not started,Gate
+T22,M1,"Walk-forward engine: 252/126-day windows, frozen parameters, costs",simulate() returns daily returns and trades log,2026-11-04,Done,Done 9 Nov: fixed trading-window ticker filter (look-ahead) and flip double-count in trade log; lag option
+T23,M1,"Test src/metrics.py: Sharpe with Lo SE, drawdown, beta, Newey-West t",Metrics on a known series,2026-11-04,Done,Done 9 Nov: 7 tests in tests/test_metrics.py; fixed Lo SE frequency and Sortino; NW lag rule; Sharpe-difference bootstrap
+T24,M1,Look-ahead check: signal at close t executed at close t+1,Check cell in notebook section 7,2026-11-04,Done,Done 9 Nov: scramble-the-future test for all four rules; lag-0 and peeking comparison in section 8
+T25,M1,Integration check: one pair end to end,"Selection, signals, backtest, metrics on one window; posted in chat",2026-11-04,Done,"Done 9 Nov: XEL/AEP window 16 end to end (section 7, figs/fig_m1_integration)"
 T26,M3,"E1: OU estimator Monte Carlo (bias and RMSE vs window, exact vs Euler)",Notebook section 4 + figs/fig_e1_ou_estimation.eps,2026-11-05,Not started,
-T27,M1,E4: synthetic cointegrated pair through the full pipeline,Notebook section 7 + figs/fig_e4_synthetic.eps,2026-11-06,Not started,
+T27,M1,E4: synthetic cointegrated pair through the full pipeline,Notebook section 7 + figs/fig_e4_synthetic.eps,2026-11-06,Done,"Done 9 Nov: 200-pair friction ladder, src/synthetic.py, results/e4_*.csv, figs/fig_e4_synthetic"
 T28,M4,E5 first run: S1 and S2 on the US universe at 10 bp,First metrics table,2026-11-06,Not started,Notebook section 8
 T29,M5,Check plots.py house style (PNG + EPS export),Every figure uses savefig(),2026-11-05,Done,Drafted in src/plots.py
 T30,M5,Report skeleton with page budget and bibliography,report/main.tex and report/refs.bib,2026-11-06,Done,Each section tagged with its owner

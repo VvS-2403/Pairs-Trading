@@ -38,7 +38,7 @@ SUB_PERIODS = {
     "2020 (COVID)": ("2020-01-01", "2020-12-31"),
     "2021-26": ("2021-01-01", "2026-12-31"),
 }
-NW_LAGS = 5                       # Newey-West lags for the t-statistic of mean return
+NW_LAGS = None                    # Newey-West lags; None = Newey-West (1994) rule, 9 for 16 years
 
 STRATEGY_LABELS = {
     "distance": "S0 Distance (Gatev 2006)",
