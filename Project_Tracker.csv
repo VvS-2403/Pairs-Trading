@@ -12,16 +12,16 @@ T10,M3,Test src/ou.py: simulate_ou (exact and Euler) and fit_ou,Notebook section
 T11,M3,Check fit_ou recovers known parameters (kappa = 5; 25; 50),Short check cell in notebook section 3,2026-10-30,Not started,
 T12,M4,Proposal figure: KO/PEP and EWA/EWC spread with OU fit and s-score bands,figs/fig_proposal_spread.eps,2026-10-30,Not started,Notebook section 6
 T13,M2,Run the Engle-Granger screen on the latest formation window,Count of 196 US pairs passing at 5% plus top-10 list for the proposal,2026-10-30,Not started,Notebook section 5
-T14,M1,Test src/backtest.py on one pair with fixed bands and one-day lag,Notebook section 7 prints daily P&L,2026-10-30,In progress,Draft in src/backtest.py
+T14,M1,Test src/backtest.py on one pair with fixed bands and one-day lag,Notebook section 7 prints daily P&L,2026-10-30,Done,Done 9 Nov: 13 engine tests in tests/test_backtest.py; notebook section 7
 T15,M3,Write the proposal maths paragraph,"OU, ADF as a test of kappa = 0, Engle-Granger in under 200 words",2026-10-29,Not started,Text is in the project plan doc
 T16,M5,"Assemble and edit the proposal: fill progress numbers, names and IDs",Proposal PDF ready for sign-off,2026-10-30,Not started,Draft is in the project plan doc
 T17,M1,Submit the proposal,Confirmation in group chat,2026-10-31,Not started,Deadline 31 Oct
 T18,M1,"Theory: walk-forward protocol, look-ahead bias, Sharpe-ratio SE (Lo 2002), Newey-West t-statistic",1-page note for the viva,2026-11-07,Not started,"Theory, 2 h"
-T19,M1,"Walk-forward engine: 252/126-day windows, frozen parameters, costs (src/backtest.py)",simulate() returns daily returns and trades log,2026-11-06,In progress,"Code, 6 h"
-T20,M1,"Test src/metrics.py: Sharpe with Lo SE, drawdown, beta, Newey-West t",Metrics on a known series,2026-11-06,In progress,"Code, 4 h"
-T21,M1,Look-ahead check: signal at close t executed at close t+1,Check cell in notebook section 7,2026-11-06,Not started,"Code, 2 h"
-T22,M1,Integration check: one pair end to end,"Selection, signals, backtest, metrics on one window; posted in chat",2026-11-06,Not started,"Code, 1 h. Gate"
-T23,M1,E4: synthetic cointegrated pair through the full pipeline,Notebook section 7 + figs/fig_e4_synthetic.eps,2026-11-08,Not started,"Code, 3 h"
+T19,M1,"Walk-forward engine: 252/126-day windows, frozen parameters, costs (src/backtest.py)",simulate() returns daily returns and trades log,2026-11-06,Done,Done 9 Nov: fixed trading-window ticker filter (look-ahead) and flip double-count in trade log; lag option
+T20,M1,"Test src/metrics.py: Sharpe with Lo SE, drawdown, beta, Newey-West t",Metrics on a known series,2026-11-06,Done,Done 9 Nov: 7 tests in tests/test_metrics.py; fixed Lo SE frequency and Sortino; NW lag rule; Sharpe-difference bootstrap
+T21,M1,Look-ahead check: signal at close t executed at close t+1,Check cell in notebook section 7,2026-11-06,Done,Done 9 Nov: scramble-the-future test for all four rules; lag-0 and peeking comparison in section 8
+T22,M1,Integration check: one pair end to end,"Selection, signals, backtest, metrics on one window; posted in chat",2026-11-06,Done,"Done 9 Nov: XEL/AEP window 16 end to end (section 7, figs/fig_m1_integration)"
+T23,M1,E4: synthetic cointegrated pair through the full pipeline,Notebook section 7 + figs/fig_e4_synthetic.eps,2026-11-08,Done,"Done 9 Nov: 200-pair friction ladder, src/synthetic.py, results/e4_*.csv, figs/fig_e4_synthetic"
 T24,M1,"Report section 3: walk-forward protocol and evaluation; results paragraph for E4 and Table 1",Text in report/main.tex,2026-11-12,Not started,"Theory, 4 h"
 T25,M1,"Notebook Restart & Run All, tag release v1.0",Clean run; tagged commit,2026-11-11,Not started,"Other, 2 h. Code freeze gate"
 T26,M1,"Final submission: code, report PDF, slides",Confirmation in group chat,2026-11-14,Not started,"Other, 1 h. Deadline 15 Nov"
