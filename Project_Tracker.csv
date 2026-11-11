@@ -4,13 +4,13 @@ T02,M1,Write src/ modules with the agreed interfaces (config.py and all module s
 T03,M2,Download and cache US and India adjusted closes from Yahoo Finance,"data/raw/us_prices.csv, india_prices.csv, data/raw/README.md",2026-10-27,Done,"86 tickers, 2010-01-04 to 2026-09-29 (US), 2012-01-02 to 2026-09-29 (India)"
 T04,M2,Read Gatev et al. (2006) and Engle & Granger (1987); 5-line notes,Notes in notebook section 2 markdown,2026-10-28,Not started,
 T05,M3,Read Yu (2012); check the OU derivation in report section 2,Derivation verified line by line,2026-10-28,Not started,
-T06,M4,Read Avellaneda & Lee (2010) and Bertram (2010); 5-line notes,Notes in notebook section 6 markdown,2026-10-28,Not started,
+T06,M4,Read Avellaneda & Lee (2010) and Bertram (2010); 5-line notes,Notes in notebook section 6 markdown,2026-10-28,Done,Done 11 Nov: 5-line notes in notebook section 6
 T07,M5,Read Krauss (2017) and Do & Faff (2010); write the literature paragraph,Report section 1 literature paragraph,2026-10-28,Not started,
 T08,M2,"Test src/data.py: load_prices, cleaning, jump report",Notebook section 2 runs; data summary table,2026-10-29,In progress,Download already ran successfully
 T09,M2,Test src/cointegration.py: ADF and Engle-Granger both directions (MacKinnon p-values),Notebook section 5 runs on one window,2026-10-30,In progress,Draft in src/cointegration.py
 T10,M3,Test src/ou.py: simulate_ou (exact and Euler) and fit_ou,Notebook section 3 figure: exact vs Euler path,2026-10-29,In progress,Draft in src/ou.py
 T11,M3,Check fit_ou recovers known parameters (kappa = 5; 25; 50),Short check cell in notebook section 3,2026-10-30,Not started,
-T12,M4,Proposal figure: KO/PEP and EWA/EWC spread with OU fit and s-score bands,figs/fig_proposal_spread.eps,2026-10-30,Not started,Notebook section 6
+T12,M4,Proposal figure: KO/PEP and EWA/EWC spread with OU fit and s-score bands,figs/fig_proposal_spread.eps,2026-10-30,Done,"Done 11 Nov: s-score bands with S2 positions shaded; neither classic pair is cointegrated over the latest year (EG p = 0.68, 0.23)"
 T13,M2,Run the Engle-Granger screen on the latest formation window,Count of 196 US pairs passing at 5% plus top-10 list for the proposal,2026-10-30,Not started,Notebook section 5
 T14,M1,Test src/backtest.py on one pair with fixed bands and one-day lag,Notebook section 7 prints daily P&L,2026-10-30,Done,Done 9 Nov: 13 engine tests in tests/test_backtest.py; notebook section 7
 T15,M3,Write the proposal maths paragraph,"OU, ADF as a test of kappa = 0, Engle-Granger in under 200 words",2026-10-29,Not started,Text is in the project plan doc
@@ -40,13 +40,13 @@ T38,M3,E6: transaction-cost sweep and break-even costs,Notebook section 9 + figs
 T39,M3,"E7: threshold grid, formation length, K, stop-loss",Notebook section 10 + figs/fig_e7_heatmap.eps,2026-11-10,Not started,"Code, 4 h"
 T40,M3,E8: US sector and sub-period tables,Table 2 in notebook section 11,2026-11-10,Not started,"Code, 3 h"
 T41,M3,"Report section 2 OU paragraphs, E1/E6/E7 results, section 5 conclusion",Text in report/main.tex,2026-11-12,Not started,"Theory, 4 h"
-T42,M4,"Theory: ADF test (unit root, Dickey-Fuller distribution, augmentation, critical values, power)",1-page note for the viva,2026-11-07,Not started,"Theory, 3 h"
-T43,M4,Test z-score (S1) and s-score (S2) rules in src/strategies.py,Check on a toy spread,2026-11-07,In progress,"Code, 4 h"
-T44,M4,E2a: ADF power heatmap over half-life and window length,Notebook section 4 + figs/fig_e2_adf_power.eps,2026-11-08,Not started,"Code, 3 h"
-T45,M4,E5 first run: S1 and S2 on the US universe at 10 bp,First metrics table,2026-11-08,Not started,"Code, 3 h"
-T46,M4,E5 final: S0-S3 headline table and cumulative-return figure,Table 1 + figs/fig_e5_cumulative.eps,2026-11-10,Not started,"Code, 4 h. Show 2022-2026 test block separately"
-T47,M4,"Report section 2 ADF paragraph and trading rules S0-S2; E2a and E5 interpretation",Text in report/main.tex,2026-11-12,Not started,"Theory, 3 h"
-T48,M4,Assemble the 12-slide deck from everyone's slides,Deck with speaker order and timings,2026-11-13,Not started,"Other, 3 h"
+T42,M4,"Theory: ADF test (unit root, Dickey-Fuller distribution, augmentation, critical values, power)",1-page note for the viva,2026-11-07,Done,Done 11 Nov: notes/M4_ADF_viva_note.md
+T43,M4,Test z-score (S1) and s-score (S2) rules in src/strategies.py,Check on a toy spread,2026-11-07,Done,Done 11 Nov: toy-spread and stop-loss checks plus 200 simulated OU paths; check cell in notebook section 6; no bugs found
+T44,M4,E2a: ADF power heatmap over half-life and window length,Notebook section 4 + figs/fig_e2_adf_power.eps,2026-11-08,Done,Done 11 Nov: results/e2_adf_power.csv; 252-day window detects half-lives up to about 10 days
+T45,M4,E5 first run: S1 and S2 on the US universe at 10 bp,First metrics table,2026-11-08,Done,"Done 11 Nov: matches M1 honest run (S1 0.33%/yr, S2 0.10%/yr)"
+T46,M4,E5 final: S0-S3 headline table and cumulative-return figure,Table 1 + figs/fig_e5_cumulative.eps,2026-11-10,Done,"Done 11 Nov: results/table1_us.csv, table1_split.csv, e5_diagnostics.csv; no Sharpe significant; ~8 pairs/window pass"
+T47,M4,Report section 2 ADF paragraph and trading rules S0-S2; E2a and E5 interpretation,Text in report/main.tex,2026-11-12,Done,"Done 11 Nov: ADF paragraph, S0/S1 sentence, E2a and E5 results, Table 1 filled"
+T48,M4,Assemble the 12-slide deck from everyone's slides,Deck with speaker order and timings,2026-11-13,In progress,"12-slide deck with speaker order and timings (3:30 each) is a claude.ai artifact; M4 slides 4, 6, 9 complete; [__] placeholders wait for T55"
 T49,M5,"Theory: Bertram (2010) first-passage times (backward equation, erfi formula) and the Kalman filter",1-page note for the viva,2026-11-07,Not started,"Theory, 3 h"
 T50,M5,Check bertram_bands() and bertram_cycle_time() against the paper,Notebook section 6 check cell,2026-11-07,In progress,"Code, 4 h"
 T51,M5,E3: Bertram E[T] vs Monte Carlo; optimal band vs cost,Notebook section 6 + figs/fig_e3_bertram.eps,2026-11-09,Not started,"Code, 4 h"

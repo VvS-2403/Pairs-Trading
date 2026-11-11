@@ -96,8 +96,13 @@ gives the ADF regression \citep{dickeyfuller1979,saiddickey1984}
   \qquad \gamma=b-1=e^{-\kappa\Delta}-1 .
 \end{equation}
 $H_0:\gamma=0$ is exactly $H_0:\kappa=0$ (a random walk, no mean reversion), against
-$H_1:\gamma<0$, i.e.\ $\kappa>0$. The $t$-statistic of $\gamma$ follows the
-Dickey--Fuller distribution; the lag order $p$ is chosen by AIC.
+$H_1:\gamma<0$, i.e.\ $\kappa>0$. Under $H_0$ the regressor $X_{t-1}$ is itself a random
+walk, so the $t$-statistic of $\hat\gamma$ is not Student-$t$ but follows the left-skewed
+Dickey--Fuller distribution, a functional of Brownian motion: with a constant the 5\%
+critical value is $-2.86$ rather than $-1.65$, and we use the p-values of \citet{mackinnon2010}.
+The lagged differences absorb serial correlation in $\varepsilon_t$ so that the same limit
+applies \citep{saiddickey1984}; the lag order $p$ is chosen by AIC. Power depends on
+$\kappa T$, the number of half-lives the window contains, which E2a measures.
 
 % OWNER: M2
 \paragraph{Engle--Granger cointegration.} Both $a_t$ and $b_t$ are $I(1)$; we regress
@@ -120,7 +125,11 @@ length and the expected return per unit time
   \qquad \mu(a,m)=\frac{m-a-c}{\mathbb{E}[T]} .
 \end{equation}
 With symmetric bands $a=-m$ we maximise $\mu$ over $m$ numerically.
-\todo{M4: one sentence on the distance rule of \citet{gatev2006} and the z-score rule.}
+The two benchmarks use no OU model: the distance rule of \citet{gatev2006} sets
+$\beta=1$, opens when the normalised price gap moves two formation standard deviations
+from zero and closes when the prices cross, and the cointegration z-score rule standardises
+the Engle--Granger spread by its formation standard deviation, $z_t=X_t/\hat\sigma_X$,
+opening at $|z|>2$ and closing at $|z|<0.5$.
 
 % OWNER: M1
 \paragraph{Position P\&L.} Holding one unit of spread means \$1 long $A$ and \$$\beta$
@@ -178,15 +187,23 @@ distance rule is tested on the Sharpe difference with a circular block bootstrap
 % About 1 2/3 pages.
 \section{Results}\label{sec:results}
 
-\paragraph{Simulation study.} \todo{M3: E1 bias of $\hat\kappa$ at 252 days. M4: E2a, which
-half-lives a 12-month window detects. M2: E2b, the actual size of the naive residual test
+\paragraph{Simulation study.} \todo{M3: E1 bias of $\hat\kappa$ at 252 days.}
+ADF power (E2a, 300 stationary OU paths per cell) depends on how many half-lives the
+window contains. On our 252-day formation window ADF rejects a unit root 99\% of the time
+for a 5-day half-life and 74\% for 10 days, but only 30\% for 20 days and 9--13\% for
+40--80 days, close to the 5\% size. A 12-month window therefore reliably detects only
+half-lives up to about 10 days, and doubling it to 504 days would extend this to about
+20 days. Slower pairs that pass the screen are mostly lucky draws, so the 63-day upper
+half-life filter admits pairs the test cannot really vouch for.
+\todo{M2: E2b, the actual size of the naive residual test
 versus Engle--Granger (from results/e2\_size.csv). M5: E3, Bertram's formula vs simulation.}
 
 \begin{figure}[h]
 \centering
 \fig{fig_e1_ou_estimation}{0.48}\hfill\fig{fig_e2_adf_power}{0.48}
 \caption{Left: relative bias of $\hat\kappa$ against window length \todo{finding}.
-Right: ADF rejection rate over half-life and window length \todo{finding}.}
+Right: ADF rejection rate at 5\% over half-life and window length; a 252-day window
+detects half-lives up to about 10 days.}
 \end{figure}
 
 \paragraph{Synthetic pair (E4).} A pair with a known OU spread ($\kappa=25$, half-life 7
@@ -208,8 +225,21 @@ added (mean of 200 pairs, $\pm 2$ SE). The dashed line is the theoretical return
 \label{fig:e4}
 \end{figure}
 
-\paragraph{Headline backtest.} \todo{M4/M1: Table 1 and Figure 2, which rule wins and
-whether the Sharpe ratio is significant; market beta.}
+\paragraph{Headline backtest.} Table~\ref{tab:e5} and Figure~\ref{fig:e5} give the
+US results from January 2011 (end of the first formation window) to September 2026.
+The cointegration z-score rule S1 does best (0.33\% a year, Sharpe 0.19, drawdown
+$-3.9\%$), ahead of Bertram's bands S3 and the s-score S2 (both Sharpe 0.06), while the
+distance baseline S0 loses money. The ranking is the same in the 2022--2026 test block
+(S1 Sharpe 0.69, S0 $-0.16$). None of this is significant. Every Sharpe ratio is within one
+\citeauthor{lo2002} standard error (0.25) of zero, every Newey--West $t$ is below 1, and
+the block-bootstrap test of each OU rule against S0 gives Holm-adjusted $p\ge 0.34$. All
+rules are market-neutral (beta 0.02--0.03 to SPY). Returns are small for two reasons.
+First, only 8.4 of 196 candidate pairs pass Engle--Granger per window, no more than a 5\%
+test flags by chance, and Benjamini--Hochberg keeps 0.6, so 12 of the 20 capital slots
+sit idle and many traded pairs are likely false positives, as E2a's low power predicts.
+Second, before costs the cointegration-based rules S1--S3 earn Sharpe ratios of 0.23--0.35, and 10\,bp per leg removes
+most of that. S2 has the highest hit rate (69\%) but trades most often (750 round
+trips), so it pays the most in costs.
 
 \begin{table}[h]
 \centering\small
@@ -217,20 +247,25 @@ whether the Sharpe ratio is significant; market beta.}
 \toprule
 Strategy & Ann.\ ret.\ \% & Vol \% & Sharpe (SE) & NW $t$ & Max DD \% & Beta \\
 \midrule
-S0 Distance & \todo{} & & & & & \\
-S1 z-score & \todo{} & & & & & \\
-S2 s-score & \todo{} & & & & & \\
-S3 Bertram & \todo{} & & & & & \\
+S0 Distance & $-0.09$ & 1.82 & $-0.05$ (0.25) & $-0.21$ & $-5.78$ & 0.02 \\
+S1 z-score  & 0.33    & 1.69 & 0.19 (0.25)    & 0.86    & $-3.94$ & 0.02 \\
+S2 s-score  & 0.10    & 1.80 & 0.06 (0.25)    & 0.25    & $-4.16$ & 0.03 \\
+S3 Bertram  & 0.12    & 1.93 & 0.06 (0.25)    & 0.27    & $-4.84$ & 0.02 \\
 \bottomrule
 \end{tabular}
-\caption{US, 2010--2026, 10\,bp per leg (results/table1\_us.csv).}
+\caption{US, Jan 2011--Sep 2026, 10\,bp per leg, committed capital (results/table1\_us.csv).
+Sharpe standard error from \citet{lo2002}; NW $t$ is the Newey--West $t$-statistic of the
+mean daily return; beta is against SPY.}
+\label{tab:e5}
 \end{table}
 
 \begin{figure}[h]
 \centering
 \fig{fig_e5_cumulative}{0.62}\hfill\fig{fig_e6_costs}{0.36}
-\caption{Left: cumulative return on committed capital, test block shaded \todo{finding}.
+\caption{Left: cumulative return on committed capital, test block shaded; S1 ends 5\%
+up over 15.7 years, S0 slightly down, and no rule escapes the March 2020 swings.
 Right: Sharpe ratio against cost per leg \todo{break-even costs}.}
+\label{fig:e5}
 \end{figure}
 
 \paragraph{Robustness.} \todo{M3: E6 break-even costs, E7 sensitivity, E8 US sectors and
