@@ -1,0 +1,12 @@
+,,Ann. return %,Sharpe,NW t-stat,Max DD %
+distance,honest (lag 1),-0.09,-0.05,-0.21,-5.78
+distance,same-close (lag 0),0.12,0.06,0.27,-5.14
+zscore,honest (lag 1),0.33,0.19,0.86,-3.94
+zscore,same-close (lag 0),0.43,0.24,1.1,-3.97
+zscore,peeking params,2.69,2.84,9.42,-1.39
+sscore,honest (lag 1),0.1,0.06,0.25,-4.16
+sscore,same-close (lag 0),0.16,0.09,0.39,-4.41
+sscore,peeking params,5.06,3.6,13.33,-1.2
+bertram,honest (lag 1),0.12,0.06,0.27,-4.84
+bertram,same-close (lag 0),0.16,0.08,0.36,-4.27
+bertram,peeking params,7.41,3.65,14.78,-1.82
