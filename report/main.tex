@@ -193,8 +193,8 @@ window contains. On our 252-day formation window ADF rejects a unit root 99\% of
 for a 5-day half-life and 74\% for 10 days, but only 30\% for 20 days and 9--13\% for
 40--80 days, close to the 5\% size. A 12-month window therefore reliably detects only
 half-lives up to about 10 days, and doubling it to 504 days would extend this to about
-20 days. Slower pairs that pass the screen are mostly lucky draws, so the 63-day upper
-half-life filter admits pairs the test cannot really vouch for.
+20 days. The real selections agree: no selected US pair has a fitted half-life above
+21 days (242 of 259 are at most 10 days), so the 63-day upper filter never binds.
 \todo{M2: E2b, the actual size of the naive residual test
 versus Engle--Granger (from results/e2\_size.csv). M5: E3, Bertram's formula vs simulation.}
 
@@ -240,6 +240,15 @@ sit idle and many traded pairs are likely false positives, as E2a's low power pr
 Second, before costs the cointegration-based rules S1--S3 earn Sharpe ratios of 0.23--0.35, and 10\,bp per leg removes
 most of that. S2 has the highest hit rate (69\%) but trades most often (750 round
 trips), so it pays the most in costs.
+
+Individual trades show that the signal itself is real. After costs S1--S3 win 63--69\% of
+round trips, far above one half (window-clustered $t$ of 5.7--10.2), and before costs S1
+earns 44\,bp per trade ($t=2.0$), so it breaks even at about 22\,bp per leg. The profit is
+lost on pairs that do not revert: trades closed by the rule win 90--97\% of the time
+($+141$ to $+274$\,bp on average), but the 28--45\% still open at the end of the window
+lose 278--340\,bp on average and cancel almost all of the gains. The OU rules work when
+the pair is genuine; the weak link is selection, which lets through about as many pairs
+as chance would (results/e5\_trades.csv, e5\_exits.csv).
 
 \begin{table}[h]
 \centering\small
