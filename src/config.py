@@ -28,6 +28,7 @@ ZSCORE = dict(entry=2.0, exit=0.5)                    # classic cointegration z-
 SSCORE = dict(open_long=-1.25, open_short=1.25,       # Avellaneda & Lee (2010)
               close_long=-0.50, close_short=0.75)
 STOP_LOSS = None                                      # |s| level; E7 tests 4.0
+TIME_STOP_HALF_LIVES = 3                              # E5c variant only (S1, S2): exit after 3 half-lives
 KALMAN = dict(delta=1e-4, entry=1.0)                  # Chan (2013), stretch strategy
 
 # Evaluation

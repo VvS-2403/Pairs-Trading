@@ -43,8 +43,15 @@ mean-reverting spreads, (ii) how well does an OU model describe them and how
 accurately can it be estimated, and (iii) do OU-based rules beat a simple distance
 rule after transaction costs, across markets and periods?
 
-\todo{M2: literature paragraph, four sentences, from \citet{gatev2006}, \citet{krauss2017},
-\citet{rad2016} and \citet{dofaff2010} (task T07).}
+% OWNER: M5 (literature paragraph, task T07)
+\citet{gatev2006} introduced the distance method and found annualised excess returns of
+up to 11\% on US stocks from 1962 to 2002. Later studies report that these profits have
+shrunk: \citet{dofaff2010} find a steady decline, partly because more pairs fail to
+converge, and \citet{rad2016} find that distance and cointegration methods earn similar
+returns that decline over time. The survey of \citet{krauss2017} groups the literature
+into distance, cointegration, time-series and stochastic-control approaches; we compare
+the distance method, a cointegration rule and two OU time-series rules
+\citep{avellaneda2010,bertram2010} under a single protocol.
 
 % ----------------------------------------------------------------------------
 % OWNERS: M3 (spread, OU model, estimation), M4 (ADF, trading rules), M2 (Engle-Granger),
@@ -196,7 +203,14 @@ half-lives up to about 10 days, and doubling it to 504 days would extend this to
 20 days. The real selections agree: no selected US pair has a fitted half-life above
 21 days (242 of 259 are at most 10 days), so the 63-day upper filter never binds.
 \todo{M2: E2b, the actual size of the naive residual test
-versus Engle--Granger (from results/e2\_size.csv). M5: E3, Bertram's formula vs simulation.}
+versus Engle--Granger (from results/e2\_size.csv).}
+Bertram's cycle time (E3) matches a direct numerical integration of the backward equation,
+and simulated cycles converge to it as monitoring gets finer: at a band of
+$0.25\sigma_{eq}$ the simulated cycle is 99\% too long when the spread is checked once a
+day, 28\% at 1/10 day and 5\% at 1/200 day. Because a path can cross a band and return
+between two checks, a daily rule completes cycles 35--99\% more slowly than the formula
+assumes, which is part of the E4 gap below. The optimal band $m^*/\sigma_{eq}$ depends
+only on $c/\sigma_{eq}$; $\kappa$ scales the return, not the band.
 
 \begin{figure}[h]
 \centering
@@ -250,6 +264,13 @@ lose 278--340\,bp on average and cancel almost all of the gains. The OU rules wo
 the pair is genuine; the weak link is selection, which lets through about as many pairs
 as chance would (results/e5\_trades.csv, e5\_exits.csv).
 
+An early exit does not repair this. We pre-registered one variant, closing a trade after
+three formation half-lives (when OU theory leaves 12.5\% of a deviation), and ran it once.
+It removed the window-end losses but fired on 46--66\% of trades and cut many that would
+have reverted later; S1's Sharpe ratio fell from 0.19 to $-0.04$ and S2's from 0.06 to
+$-0.22$ (bootstrap $p=0.13$ and $0.11$). Because $\hat\kappa$ is biased upward, fitted
+half-lives are too short and the clock fires early, so the headline keeps the paper rules.
+
 \begin{table}[h]
 \centering\small
 \begin{tabular}{lrrrrrr}
@@ -278,8 +299,18 @@ Right: Sharpe ratio against cost per leg \todo{break-even costs}.}
 \end{figure}
 
 \paragraph{Robustness.} \todo{M3: E6 break-even costs, E7 sensitivity, E8 US sectors and
-sub-periods (Table 2). M5: E8 India, E10 Kalman. M2: E9 share of pairs still cointegrated
-out of sample.}
+sub-periods (Table 2). M2: E9 share of pairs still cointegrated out of sample.}
+India (E8, 2013--2026, 15\,bp) repeats the US pattern. Only 3.2 of 55 candidate pairs
+pass Engle--Granger per window (up to 2.8 by chance), so about 3 of 20 slots are used.
+All four rules are positive, S1 best with Sharpe 0.38, but none is significant (SE 0.27,
+Newey--West $t\le 1.51$). Per trade the signal is stronger than in the US: after costs
+S1--S3 win 68--69\% of trades ($t$ = 3.6--6.1) and earn 42--90\,bp each, and the
+pre-registered time stop again lowers the Sharpe ratios (S1 to $-0.08$, S2 to $-0.03$).
+The Kalman hedge ratio (E10; \citealp{elliott2005,chan2013}) fails as specified, with a
+Sharpe ratio of $-0.12$: with $\delta=10^{-4}$ the hedge ratio adapts so fast that the
+forecast error keeps only 31\% of the spread's variation, and the standardised signal
+passes $\pm1$ on 0.5\% of days. Estimating the filter's noise by maximum likelihood on
+the formation window is left for future work.
 
 % ----------------------------------------------------------------------------
 % OWNER: M3. About 1/3 page.

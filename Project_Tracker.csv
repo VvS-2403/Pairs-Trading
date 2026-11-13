@@ -5,7 +5,7 @@ T03,M2,Download and cache US and India adjusted closes from Yahoo Finance,"data/
 T04,M2,Read Gatev et al. (2006) and Engle & Granger (1987); 5-line notes,Notes in notebook section 2 markdown,2026-10-28,Not started,
 T05,M3,Read Yu (2012); check the OU derivation in report section 2,Derivation verified line by line,2026-10-28,Not started,
 T06,M4,Read Avellaneda & Lee (2010) and Bertram (2010); 5-line notes,Notes in notebook section 6 markdown,2026-10-28,Done,Done 11 Nov: 5-line notes in notebook section 6
-T07,M5,Read Krauss (2017) and Do & Faff (2010); write the literature paragraph,Report section 1 literature paragraph,2026-10-28,Not started,
+T07,M5,Read Krauss (2017) and Do & Faff (2010); write the literature paragraph,Report section 1 literature paragraph,2026-10-28,Done,Done 13 Nov: literature paragraph in report section 1 (report TODO had named M2; tracker assigns M5)
 T08,M2,"Test src/data.py: load_prices, cleaning, jump report",Notebook section 2 runs; data summary table,2026-10-29,In progress,Download already ran successfully
 T09,M2,Test src/cointegration.py: ADF and Engle-Granger both directions (MacKinnon p-values),Notebook section 5 runs on one window,2026-10-30,In progress,Draft in src/cointegration.py
 T10,M3,Test src/ou.py: simulate_ou (exact and Euler) and fit_ou,Notebook section 3 figure: exact vs Euler path,2026-10-29,In progress,Draft in src/ou.py
@@ -44,15 +44,15 @@ T42,M4,"Theory: ADF test (unit root, Dickey-Fuller distribution, augmentation, c
 T43,M4,Test z-score (S1) and s-score (S2) rules in src/strategies.py,Check on a toy spread,2026-11-07,Done,Done 11 Nov: toy-spread and stop-loss checks plus 200 simulated OU paths; check cell in notebook section 6; no bugs found
 T44,M4,E2a: ADF power heatmap over half-life and window length,Notebook section 4 + figs/fig_e2_adf_power.eps,2026-11-08,Done,Done 11 Nov: results/e2_adf_power.csv; 252-day window detects half-lives up to about 10 days
 T45,M4,E5 first run: S1 and S2 on the US universe at 10 bp,First metrics table,2026-11-08,Done,"Done 11 Nov: matches M1 honest run (S1 0.33%/yr, S2 0.10%/yr)"
-T46,M4,E5 final: S0-S3 headline table and cumulative-return figure,Table 1 + figs/fig_e5_cumulative.eps,2026-11-10,Done,"Done 11-12 Nov: results/table1_us.csv, table1_split.csv, e5_diagnostics.csv; E5b trade-level evidence (e5_trades.csv, e5_exits.csv): signal significant, broken pairs cancel the profit"
-T47,M4,Report section 2 ADF paragraph and trading rules S0-S2; E2a and E5 interpretation,Text in report/main.tex,2026-11-12,Done,"Done 12 Nov: ADF paragraph, S0/S1 rules, E2a, E5 and E5b results, Table 1 filled"
+T46,M4,E5 final: S0-S3 headline table and cumulative-return figure,Table 1 + figs/fig_e5_cumulative.eps,2026-11-10,Done,"Done 11-12 Nov: Table 1, split, diagnostics; E5b trade-level evidence; E5c pre-registered 3-half-life time stop rejected (S1 Sharpe 0.19 -> -0.04, S2 0.06 -> -0.22)"
+T47,M4,Report section 2 ADF paragraph and trading rules S0-S2; E2a and E5 interpretation,Text in report/main.tex,2026-11-12,Done,"Done 12 Nov: ADF paragraph, S0/S1 rules, E2a, E5, E5b and E5c results, Table 1 filled"
 T48,M4,Assemble the 12-slide deck from everyone's slides,Deck with speaker order and timings,2026-11-13,In progress,"12-slide deck with speaker order and timings (3:30 each) is a claude.ai artifact; M4 slides 4, 6, 9 complete; [__] placeholders wait for T55"
-T49,M5,"Theory: Bertram (2010) first-passage times (backward equation, erfi formula) and the Kalman filter",1-page note for the viva,2026-11-07,Not started,"Theory, 3 h"
-T50,M5,Check bertram_bands() and bertram_cycle_time() against the paper,Notebook section 6 check cell,2026-11-07,In progress,"Code, 4 h"
-T51,M5,E3: Bertram E[T] vs Monte Carlo; optimal band vs cost,Notebook section 6 + figs/fig_e3_bertram.eps,2026-11-09,Not started,"Code, 4 h"
-T52,M5,E8: India results table for S0-S3 at 15 bp,Table in notebook section 11,2026-11-10,Not started,"Code, 3 h"
-T53,M5,Stretch E10: Kalman-filter hedge ratio,Extra row in Table 1,2026-11-10,Not started,"Code, 5 h. Stretch; cut first if behind"
-T54,M5,"Report section 2 Bertram paragraph, E3/E8/E10 results; final edit of the whole report to 4 pages",Complete report PDF,2026-11-13,Not started,"Theory, 3 h"
+T49,M5,"Theory: Bertram (2010) first-passage times (backward equation, erfi formula) and the Kalman filter",1-page note for the viva,2026-11-07,Done,Done 13 Nov: notes/M5_Bertram_Kalman_viva_note.md; 5-line notes in notebook section 6
+T50,M5,Check bertram_bands() and bertram_cycle_time() against the paper,Notebook section 6 check cell,2026-11-07,Done,"Done 13 Nov: erfi formula = numerical integral of the backward-equation solution (1e-8); optimiser = grid; m* rises with cost, 0 at zero cost"
+T51,M5,E3: Bertram E[T] vs Monte Carlo; optimal band vs cost,Notebook section 6 + figs/fig_e3_bertram.eps,2026-11-09,Done,Done 13 Nov: MC converges to the formula as monitoring gets finer; daily checks lengthen cycles 35-99%; m*/sigma_eq independent of kappa
+T52,M5,E8: India results table for S0-S3 at 15 bp,Table in notebook section 11,2026-11-10,Done,"Done 13 Nov: India Sharpe 0.16-0.38, none significant; ~3 of 55 pairs pass (chance 2.8); S1-S3 hit 68-69% (t 3.6-6.1); results/e8_india_detail.csv"
+T53,M5,Stretch E10: Kalman-filter hedge ratio,Extra row in Table 1,2026-11-10,Done,"Done 13 Nov: as specified Sharpe -0.12; diagnosis: beta absorbs the spread, sd(z) 0.21, |z|>1 on 0.5% of days; MLE of noise left as future work"
+T54,M5,"Report section 2 Bertram paragraph, E3/E8/E10 results; final edit of the whole report to 4 pages",Complete report PDF,2026-11-13,In progress,"M5 report text done (literature, E3, India, E10); final cut to 4 pages waits for M2/M3 sections (12 TODOs left)"
 T55,All,Each member: own 2-3 slides and answers to the Q&A bank questions on their topic,Slides sent to M4,2026-11-12,Not started,"Other, 1 h each. Viva about 3.5 min each"
 T56,All,Cross-training: each member teaches their slides,Everyone can answer Q&A bank questions 1-8,2026-11-12,Not started,"Other, 2 h each"
 T57,All,Mock viva 1 with timer and Q&A bank,List of weak answers to fix,2026-11-13,Not started,"Other, 2 h each"
