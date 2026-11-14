@@ -23,6 +23,7 @@
 - So the test statistic is pushed towards rejection, and the critical value must be more
   negative: about **−3.34** at 5% for two series, instead of **−2.86** for plain ADF.
 - Using −2.86 would find far more "pairs" than really exist.
+- **Our experiment (E2b):** on 1,000 pairs of independent random walks, plain ADF critical values wrongly flag **16.9%** as pairs, Engle-Granger **6.2%** (nominal 5%).
 
 ## 4. Both directions
 Regressing a on b minimises errors in a; regressing b on a minimises errors in b. The two β̂
