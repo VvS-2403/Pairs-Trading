@@ -41,7 +41,7 @@ jupyter notebook notebook.ipynb
 ```
 
 Prices are already in `data/raw/`. Run `python -m src.data` only to refresh them.
-Sections 8-13 of the notebook run the full backtests; set `RUN_HEAVY = True` in section 1.
+Sections 8-10 of the notebook run the full backtests; set `RUN_HEAVY = True` in section 1.
 Pair selection is cached in `results/cache/` after the first run.
 
 ## Team workflow

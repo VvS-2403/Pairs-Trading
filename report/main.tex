@@ -11,10 +11,15 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{xcolor}
-\usepackage[authoryear,round]{natbib}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 
 \graphicspath{{../figs/}}
+\setlength{\textfloatsep}{6pt plus 2pt minus 2pt}\setlength{\floatsep}{6pt plus 2pt minus 2pt}
+\setlength{\abovecaptionskip}{3pt}\setlength{\belowcaptionskip}{0pt}
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}{2.2ex plus .5ex minus .2ex}{1ex plus .2ex}{\normalfont\large\bfseries}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}{1.2ex plus .3ex minus .2ex}{-1em}{\normalfont\normalsize\bfseries}}
+\makeatother
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
 % \fig{name}{width}: shows the figure once notebook.ipynb has written figs/name.eps
 \newcommand{\fig}[2]{\IfFileExists{../figs/#1.eps}{\includegraphics[width=#2\linewidth]{#1}}{\fbox{\parbox{#2\linewidth}{\centering\vspace{1.5cm}figure \detokenize{#1} pending\vspace{1.5cm}}}}}
@@ -32,26 +37,13 @@ MAC F244, Semester I, 2026--27}
 % ----------------------------------------------------------------------------
 % OWNER: M2 (about 1/3 page)
 \section{Introduction}
-Pairs trading bets that the price gap between two related stocks returns to its
-mean. It works only if that gap really is mean-reverting and if it is traded at the
-right levels. We model the log-price spread of a pair as an Ornstein--Uhlenbeck (OU)
-process, select pairs with augmented Dickey--Fuller (ADF) and Engle--Granger tests,
-and compare four published trading rules on US and Indian stocks from 2010 to 2026.
-
-We ask three questions: (i) how reliably can ADF and Engle--Granger tests find
-mean-reverting spreads, (ii) how well does an OU model describe them and how
-accurately can it be estimated, and (iii) do OU-based rules beat a simple distance
-rule after transaction costs, across markets and periods?
-
-% OWNER: M5 (literature paragraph, task T07)
-\citet{gatev2006} introduced the distance method and found annualised excess returns of
-up to 11\% on US stocks from 1962 to 2002. Later studies report that these profits have
-shrunk: \citet{dofaff2010} find a steady decline, partly because more pairs fail to
-converge, and \citet{rad2016} find that distance and cointegration methods earn similar
-returns that decline over time. The survey of \citet{krauss2017} groups the literature
-into distance, cointegration, time-series and stochastic-control approaches; we compare
-the distance method, a cointegration rule and two OU time-series rules
-\citep{avellaneda2010,bertram2010} under a single protocol.
+Pairs trading bets that the price gap between two related stocks returns to its mean.
+We model the gap
+as an Ornstein--Uhlenbeck (OU) process, select pairs with augmented Dickey--Fuller (ADF)
+and Engle--Granger tests, and compare four trading rules on US and Indian
+stocks from 2010 to 2026. We ask whether these tests find real mean-reverting pairs, how
+accurately the OU model can be estimated, and whether any rule beats a simple distance
+rule after costs.
 
 % ----------------------------------------------------------------------------
 % OWNERS: M3 (spread, OU model, estimation), M4 (ADF, trading rules), M2 (Engle-Granger),
@@ -68,7 +60,7 @@ come from an OLS regression on the formation window only.
   dX_t = \kappa(\theta - X_t)\,dt + \sigma\,dW_t, \qquad \kappa>0
   \label{eq:ou}
 \end{equation}
-\citep{uhlenbeck1930}. Applying It\^o's lemma to $e^{\kappa t}X_t$ removes the drift:
+Applying It\^o's lemma to $e^{\kappa t}X_t$ removes the drift:
 \begin{equation}
   X_t = \theta + (X_0-\theta)e^{-\kappa t} + \sigma\int_0^t e^{-\kappa(t-s)}\,dW_s ,
 \end{equation}
@@ -89,41 +81,48 @@ estimator, and
   \hat\sigma=\hat s_\varepsilon\sqrt{\frac{2\hat\kappa}{1-\hat b^{2}}},\qquad
   \sigma_{eq}=\frac{\hat s_\varepsilon}{\sqrt{1-\hat b^{2}}},
 \end{equation}
-valid only when $0<\hat b<1$. In short samples $\hat\kappa$ is biased upward
-\citep{yu2012}; Section~\ref{sec:results} measures the bias for our window lengths.
-Euler--Maruyama gives $b\approx 1-\kappa\Delta$; because the noise in \eqref{eq:ou} is
-additive, Milstein's correction vanishes and Milstein coincides with Euler--Maruyama
-\citep{kloeden1992}.
+valid only when $0<\hat b<1$. In short samples $\hat\kappa$ is biased upward;
+Section~\ref{sec:results} measures the bias for our window lengths.
+A simple step-by-step approximation would only give $b\approx 1-\kappa\Delta$, while this formula is exact.
 
 % OWNER: M4
-\paragraph{ADF is a test of $\kappa=0$.} Subtracting $X_{t-1}$ from \eqref{eq:ar1}
-gives the ADF regression \citep{dickeyfuller1979,saiddickey1984}
+\paragraph{ADF is a test of $\kappa=0$.} Subtracting $X_{t-1}$ from both sides of
+\eqref{eq:ar1} gives $\Delta X_t = a + (b-1)X_{t-1} + \varepsilon_t$, whose slope
+$\gamma = b-1 = e^{-\kappa\Delta}-1$ is zero exactly when $\kappa=0$; we therefore test
+$H_0:\gamma=0$ (a random walk, no mean reversion) against $H_1:\gamma<0$ ($\kappa>0$). The
+augmented Dickey--Fuller (ADF) test adds past daily changes to this regression,
 \begin{equation}
-  \Delta X_t = \alpha + \gamma X_{t-1} + \sum_{i=1}^{p}\delta_i\,\Delta X_{t-i} + \varepsilon_t,
-  \qquad \gamma=b-1=e^{-\kappa\Delta}-1 .
+  \Delta X_t = a + \gamma X_{t-1} + \sum_{i=1}^{p}\delta_i\,\Delta X_{t-i} + \varepsilon_t ,
 \end{equation}
-$H_0:\gamma=0$ is exactly $H_0:\kappa=0$ (a random walk, no mean reversion), against
-$H_1:\gamma<0$, i.e.\ $\kappa>0$. Under $H_0$ the regressor $X_{t-1}$ is itself a random
-walk, so the $t$-statistic of $\hat\gamma$ is not Student-$t$ but follows the left-skewed
-Dickey--Fuller distribution, a functional of Brownian motion: with a constant the 5\%
-critical value is $-2.86$ rather than $-1.65$, and we use the p-values of \citet{mackinnon2010}.
-The lagged differences absorb serial correlation in $\varepsilon_t$ so that the same limit
-applies \citep{saiddickey1984}; the lag order $p$ is chosen by AIC. Power depends on
-$\kappa T$, the number of half-lives the window contains, which E2a measures.
+where the lagged differences $\Delta X_{t-i}$ soak up day-to-day correlation in the noise, so
+that $\varepsilon_t$ is pure noise and the test on $\gamma$ stays valid. We pick the number of
+lags $p\le p_{\max}$ with the smallest Akaike information criterion,
+$\mathrm{AIC} = 2k - 2\ln\hat L$ ($k$ parameters, maximised likelihood $\hat L$): a lag stays
+only if it improves the fit by more than its penalty of 2. The
+test statistic is the usual $t$-statistic of $\hat\gamma$, but under $H_0$ the regressor
+$X_{t-1}$ is itself a random walk, so it does not follow a Student-$t$ distribution; it
+follows the left-skewed Dickey--Fuller distribution, a functional of Brownian motion, whose
+5\% critical value with a constant is $-2.86$ instead of $-1.65$. How often the test detects
+mean reversion depends on $\kappa T$, the number of half-lives the window contains, which
+E2a measures.
 
 % OWNER: M2
-\paragraph{Engle--Granger cointegration.} Both $a_t$ and $b_t$ are $I(1)$; we regress
-$a_t=\mu+\beta b_t+u_t$ and test $\hat u_t$ for a unit root \citep{englegranger1987}.
-Because $\hat\beta$ is fitted to make $\hat u_t$ look stationary, plain ADF critical
-values over-reject (the spurious regression of \citealp{grangernewbold1974}); we use
-Engle--Granger critical values \citep{mackinnon2010}. The test depends on which stock
-is the regressand, so a pair is kept only if both directions reject at 5\%.
+\paragraph{Engle--Granger cointegration.} Each log price is $I(1)$: its level wanders like
+a random walk, but its daily changes are stationary. Two prices are \emph{cointegrated} if
+some combination $a_t-\beta b_t$ is stationary, so they cannot drift apart for good. To test
+this we regress $a_t=\mu+\beta b_t+u_t$ on the formation window and run the ADF test on the
+residuals $\hat u_t$, our estimated spread. OLS picks $\hat\beta$ to make $\hat u_t$ as small
+as possible, so $\hat u_t$ looks more stable than the true spread and even unrelated random
+walks can seem to mean-revert (a \emph{spurious regression}); the critical value must
+therefore be more negative, about $-3.34$ at 5\% instead of $-2.86$. Regressing $a$ on $b$
+and $b$ on $a$ minimise different errors, so the two tests can disagree; as a pair's labels
+are arbitrary, we keep it only if both directions reject at 5\%.
 
 % OWNER: M4 (s-score and distance/z-score rules); M5 (Bertram, from "For the optimal bands")
-\paragraph{Trading rules.} The s-score of \citet{avellaneda2010} is
+\paragraph{Trading rules.} The s-score rule (S2) uses
 $s_t=(X_t-\hat\theta)/\sigma_{eq}$: open long when $s<-1.25$, open short when $s>1.25$,
-close a long when $s>-0.50$ and a short when $s<0.75$. For the optimal bands of
-\citet{bertram2010}, take the centred process $dX=-\kappa X\,dt+\sigma\,dW$, entry $a$,
+close a long when $s>-0.50$ and a short when $s<0.75$. For the optimal bands (S3),
+take the centred process $dX=-\kappa X\,dt+\sigma\,dW$, entry $a$,
 exit $m>a$ and round-trip cost $c$. Solving
 $\tfrac12\sigma^2u''-\kappa x u'=-1$ for first-passage times gives the expected cycle
 length and the expected return per unit time
@@ -132,11 +131,11 @@ length and the expected return per unit time
   \qquad \mu(a,m)=\frac{m-a-c}{\mathbb{E}[T]} .
 \end{equation}
 With symmetric bands $a=-m$ we maximise $\mu$ over $m$ numerically.
-The two benchmarks use no OU model: the distance rule of \citet{gatev2006} sets
-$\beta=1$, opens when the normalised price gap moves two formation standard deviations
-from zero and closes when the prices cross, and the cointegration z-score rule standardises
-the Engle--Granger spread by its formation standard deviation, $z_t=X_t/\hat\sigma_X$,
-opening at $|z|>2$ and closing at $|z|<0.5$.
+The two benchmarks use no OU model: the distance rule (S0) picks the pairs with the smallest
+sum of squared differences of normalised prices, sets $\beta=1$, opens when their gap moves two
+formation standard deviations from zero and closes when the prices cross; the cointegration
+z-score rule (S1) standardises the Engle--Granger spread by its formation standard deviation,
+$z_t=X_t/\hat\sigma_X$, opening at $|z|>2$ and closing at $|z|<0.5$.
 
 % OWNER: M1
 \paragraph{Position P\&L.} Holding one unit of spread means \$1 long $A$ and \$$\beta$
@@ -146,179 +145,134 @@ minus costs on every trade.
 % ----------------------------------------------------------------------------
 % OWNER: M2 (data), M1 (protocol). About 1/2 page.
 \section{Data and methodology}
-\paragraph{Data.} Daily adjusted closes from Yahoo Finance \citep{yahoo2026} for 56 US large caps in 7
+\paragraph{Data.} Daily adjusted closes from Yahoo Finance (retrieved 26 Oct 2026) for 56 US large caps in 7
 sectors (Jan 2010--Sep 2026) and 26 NSE stocks in 5 sectors (Jan 2012--Sep 2026).
 Pairs are formed only within a sector and a market (196 US candidate pairs per window).
 The sample uses today's large caps, so it has survivorship bias.
 
 \paragraph{Walk-forward protocol.} Pairs are selected on a 252-day formation window
 and traded for the next 126 days with frozen parameters; the window then rolls by
-126 days \citep{gatev2006}. Selection keeps Engle--Granger $p<0.05$ in both
+126 days. Selection keeps Engle--Granger $p<0.05$ in both
 directions, $\beta>0$, a half-life of 2--63 days and at least 12 mean crossings a
-year \citep{sarmento2020}, ranked by the Engle--Granger statistic, top $K=20$.
+year, ranked by the Engle--Granger statistic, top $K=20$.
 Signals at the close of day $t$ are executed at the close of $t+1$, open positions are
 closed at the end of the window, and costs are 10\,bp (US) or 15\,bp (India) per leg
-per transaction. Thresholds are taken from the papers and never tuned; design choices
+per transaction. Thresholds are fixed in advance and never tuned; design choices
 were frozen on 2010--2021 and 2022--2026 is reported as an untouched test block.
-Every input to a trade is known before it is placed; a unit test scrambles all prices
-after a date and confirms that no earlier return changes. Re-estimating $\beta$ and the
-OU parameters on the trading window instead (look-ahead) would raise the s-score Sharpe
-ratio from about 0 to 3.6 on our US data, which shows why this discipline matters.
+Every input to a trade is known before it is placed (a unit test scrambles all prices after
+a date and confirms no earlier return changes); re-estimating $\beta$ and the OU parameters on
+the trading window instead would raise the s-score Sharpe ratio from about 0 to 3.6.
 
-\begin{table}[h]
-\centering\small
-\begin{tabular}{llll}
-\toprule
-ID & Strategy & Selection & Entry and exit \\
-\midrule
-S0 & Distance \citep{gatev2006} & Minimum SSD & Open at $2\sigma$, close at crossing \\
-S1 & Cointegration z-score & EG + ADF + OU filters & Open $|z|>2$, close $|z|<0.5$ \\
-S2 & OU s-score \citep{avellaneda2010} & as S1 & $1.25 / 0.50 / 0.75$ \\
-S3 & OU optimal bands \citep{bertram2010} & as S1 & Maximise $\mu(-m,m)$ at cost $c$ \\
-\bottomrule
-\end{tabular}
-\caption{Strategies compared under one protocol.}
-\end{table}
+\paragraph{Evaluation.} Returns are on committed capital ($K$ equal slots; idle slots earn 0). We report
+annualised return, volatility, the Sharpe ratio with its standard error, maximum drawdown, hit rate
+and market beta; whether an OU rule beats the distance rule is tested on the Sharpe difference with a
+circular block bootstrap and Holm's correction for the three comparisons.
 
-\paragraph{Evaluation.} Returns are on committed capital ($K$ equal slots; idle slots
-earn 0). We report annualised return and volatility, the Sharpe ratio with the IID
-standard error of \citet{lo2002}, the Newey--West $t$-statistic of the mean daily return
-\citep{neweywest1987} with the lag rule of \citet{neweywest1994}, maximum drawdown, hit
-rate and market beta. Pairs returns are autocorrelated, so whether an OU rule beats the
-distance rule is tested on the Sharpe difference with a circular block bootstrap
-\citep{politisromano1992,ledoitwolf2008} and Holm's \citeyearpar{holm1979} correction for the three comparisons.
+\paragraph{Implementation.} Everything is written in Python (NumPy, SciPy and statsmodels). Each formula above has a matching function in \texttt{src/} (e.g.\ \texttt{fit\_ou},
+\texttt{adf\_test}, \texttt{engle\_granger\_both}, \texttt{bertram\_bands}), and every result in
+Section~\ref{sec:results} is produced by a cell of \texttt{notebook.ipynb}.
 
 % ----------------------------------------------------------------------------
-% OWNERS: each member writes the results of their own experiments; M5 edits the section to fit.
-% M3: E1, E6, E7, E8 (US)   M4: E2a, E5   M2: E2b, E9   M5: E3, E8 (India), E10   M1: E4, Table 1 text
-% About 1 2/3 pages.
+% Results, written as one story for a reader who is not a quant. All figures and tables are
+% collected at the end of the section. Sources: E1, E2a, E3, E4 (M1), E5, E8 (India), E9.
 \section{Results}\label{sec:results}
+We test the idea in three steps: simulations where we know the right answer, a perfect made-up
+pair, and real stocks in the US and India, changing the data or the assets along the way (the
+amount of data, the speed of the pairs, the market). A pair's \emph{half-life} is the time its gap
+takes to close half-way, a \emph{basis point} (bp) is 0.01\%, and the \emph{Sharpe ratio} is
+return per unit of risk, which must be roughly twice its margin of error to count as more than
+luck. Figures and tables are at the end of the section.
 
-\paragraph{Simulation study.} \todo{M3: E1 bias of $\hat\kappa$ at 252 days.}
-ADF power (E2a, 300 stationary OU paths per cell) depends on how many half-lives the
-window contains. On our 252-day formation window ADF rejects a unit root 99\% of the time
-for a 5-day half-life and 74\% for 10 days, but only 30\% for 20 days and 9--13\% for
-40--80 days, close to the 5\% size. A 12-month window therefore reliably detects only
-half-lives up to about 10 days, and doubling it to 504 days would extend this to about
-20 days. The real selections agree: no selected US pair has a fitted half-life above
-21 days (242 of 259 are at most 10 days), so the 63-day upper filter never binds.
-\todo{M2: E2b, the actual size of the naive residual test
-versus Engle--Granger (from results/e2\_size.csv).}
-Bertram's cycle time (E3) matches a direct numerical integration of the backward equation,
-and simulated cycles converge to it as monitoring gets finer: at a band of
-$0.25\sigma_{eq}$ the simulated cycle is 99\% too long when the spread is checked once a
-day, 28\% at 1/10 day and 5\% at 1/200 day. Because a path can cross a band and return
-between two checks, a daily rule completes cycles 35--99\% more slowly than the formula
-assumes, which is part of the E4 gap below. The optimal band $m^*/\sigma_{eq}$ depends
-only on $c/\sigma_{eq}$; $\kappa$ scales the return, not the band.
+\paragraph{Can we measure and detect mean reversion?} Our model describes each pair by the speed
+$\kappa$ at which its gap closes. Estimated from one year of data it is too high, by about 18\%
+for a gap that halves in 7 days and 96\% for a slow pair (E1), so pairs look faster than they are.
+The ADF test that picks pairs finds a gap that halves in 5 days almost every time and one that
+halves in 10 days three times in four, but a 20-day gap only one time in three (E2a,
+Figure~\ref{fig:sim}, left), and every pair we select has a half-life of 21 days or less. The
+formula behind rule S3 is correct, but checking prices once a day makes trades 35--99\% slower
+than it assumes (E3).
 
-\begin{figure}[h]
-\centering
-\fig{fig_e1_ou_estimation}{0.48}\hfill\fig{fig_e2_adf_power}{0.48}
-\caption{Left: relative bias of $\hat\kappa$ against window length \todo{finding}.
-Right: ADF rejection rate at 5\% over half-life and window length; a 252-day window
-detects half-lives up to about 10 days.}
-\end{figure}
+\paragraph{What would a perfect pair earn?} A made-up pair that follows our model exactly, run
+200 times through the steps we use on real stocks, earns 12.7\% a year against 24.2\% in theory
+(E4, Figure~\ref{fig:sim}, right). The biggest loss, 4.5 points, is picking the pair (the
+selection test finds it in only 74\% of windows); daily prices with a one-day delay cost 3.3,
+estimating the hedge ratio 2.3, other estimates 1.0 and six-monthly restarts 0.5.
 
-\paragraph{Synthetic pair (E4).} A pair with a known OU spread ($\kappa=25$, half-life 7
-days, $\sigma_{eq}=0.03$, $\beta=1.2$, 5\,bp) is run through the pipeline 200 times
-(Figure~\ref{fig:e4}). Bertram's formula predicts 24.2\% a year and a fine-grid
-simulation gives 24.3\%, which validates the P\&L accounting. The full pipeline earns
-12.7\% (SE 0.2\%). Daily monitoring and the one-day lag cost 3.3 points, window resets
-0.5, estimated OU parameters 1.0 (despite a 24\% upward bias in $\hat\kappa$), the
-estimated hedge ratio 2.3 and pair selection 4.5: Engle--Granger finds this truly
-cointegrated pair in only 74\% of windows. Even a perfect OU pair earns about half its
-theoretical return under realistic trading, and hedge-ratio error costs more than OU
-parameter error.
+\paragraph{What happens with real stocks?} We traded all four rules on 56 large US stocks from
+2011 to 2026 at 10\,bp per trade on each stock (E5, Table~\ref{tab:e5}, upper panel,
+Figure~\ref{fig:e5}). The best rule, the cointegration z-score S1, earned 0.33\% a year (Sharpe
+ratio 0.19) and the distance rule S0 lost slightly, but with a margin of error of 0.25 no Sharpe
+ratio is distinguishable from zero, and none depends on the market. The individual trades explain
+this: before costs S1 earns about 44\,bp per trade, twice the 20\,bp a round trip costs, and
+after costs the three rules built on cointegration still win about two trades in three. Trades
+closed by the rule almost always make money; the losses come from the 28--45\% that never close
+within six months, which lose about 3\% each and cancel the gains. They are common because many
+selected pairs are not real: only about 8 of 196 candidate pairs pass the selection test per
+window, no more than the up to 10 expected by luck alone.
 
-\begin{figure}[h]
-\centering
-\fig{fig_e4_synthetic}{0.62}
-\caption{E4: annual return of Bertram's bands on a synthetic OU pair as each friction is
-added (mean of 200 pairs, $\pm 2$ SE). The dashed line is the theoretical return.}
-\label{fig:e4}
-\end{figure}
+\paragraph{Does it hold in India, and do pairs stay pairs?} On 26 stocks of India's National Stock
+Exchange (2013--2026, 15\,bp; E8, Table~\ref{tab:e5}, lower panel) all four rules again gain
+slightly, S1 best (Sharpe ratio 0.38), none significantly (margin of error 0.27), and only about 3
+of 55 candidate pairs pass the selection test per window. A direct test (E9) agrees: over the
+next six months only 9\% of the 259 selected US pairs still showed mean reversion, against about
+half had they kept the speed they showed when selected (median half-life 7 days). That benchmark
+is somewhat generous, since speeds are over-estimated, but the fair figure is still well above
+9\%. Selected pairs therefore mostly do not keep their mean reversion, which fits selection
+picking lucky pairs.
 
-\paragraph{Headline backtest.} Table~\ref{tab:e5} and Figure~\ref{fig:e5} give the
-US results from January 2011 (end of the first formation window) to September 2026.
-The cointegration z-score rule S1 does best (0.33\% a year, Sharpe 0.19, drawdown
-$-3.9\%$), ahead of Bertram's bands S3 and the s-score S2 (both Sharpe 0.06), while the
-distance baseline S0 loses money. The ranking is the same in the 2022--2026 test block
-(S1 Sharpe 0.69, S0 $-0.16$). None of this is significant. Every Sharpe ratio is within one
-\citeauthor{lo2002} standard error (0.25) of zero, every Newey--West $t$ is below 1, and
-the block-bootstrap test of each OU rule against S0 gives Holm-adjusted $p\ge 0.34$. All
-rules are market-neutral (beta 0.02--0.03 to SPY). Returns are small for two reasons.
-First, only 8.4 of 196 candidate pairs pass Engle--Granger per window, no more than a 5\%
-test flags by chance, and Benjamini--Hochberg keeps 0.6, so 12 of the 20 capital slots
-sit idle and many traded pairs are likely false positives, as E2a's low power predicts.
-Second, before costs the cointegration-based rules S1--S3 earn Sharpe ratios of 0.23--0.35, and 10\,bp per leg removes
-most of that. S2 has the highest hit rate (69\%) but trades most often (750 round
-trips), so it pays the most in costs.
-
-Individual trades show that the signal itself is real. After costs S1--S3 win 63--69\% of
-round trips, far above one half (window-clustered $t$ of 5.7--10.2), and before costs S1
-earns 44\,bp per trade ($t=2.0$), so it breaks even at about 22\,bp per leg. The profit is
-lost on pairs that do not revert: trades closed by the rule win 90--97\% of the time
-($+141$ to $+274$\,bp on average), but the 28--45\% still open at the end of the window
-lose 278--340\,bp on average and cancel almost all of the gains. The OU rules work when
-the pair is genuine; the weak link is selection, which lets through about as many pairs
-as chance would (results/e5\_trades.csv, e5\_exits.csv).
-
-An early exit does not repair this. We pre-registered one variant, closing a trade after
-three formation half-lives (when OU theory leaves 12.5\% of a deviation), and ran it once.
-It removed the window-end losses but fired on 46--66\% of trades and cut many that would
-have reverted later; S1's Sharpe ratio fell from 0.19 to $-0.04$ and S2's from 0.06 to
-$-0.22$ (bootstrap $p=0.13$ and $0.11$). Because $\hat\kappa$ is biased upward, fitted
-half-lives are too short and the clock fires early, so the headline keeps the paper rules.
-
-\begin{table}[h]
-\centering\small
-\begin{tabular}{lrrrrrr}
+% ---- Figures and tables for this section ----
+\begin{table}[tb]
+\centering\footnotesize
+\begin{tabular}{lrrrrr}
 \toprule
-Strategy & Ann.\ ret.\ \% & Vol \% & Sharpe (SE) & NW $t$ & Max DD \% & Beta \\
+Strategy & Return \%/yr & Vol \% & Sharpe (SE) & Max DD \% & Beta \\
 \midrule
-S0 Distance & $-0.09$ & 1.82 & $-0.05$ (0.25) & $-0.21$ & $-5.78$ & 0.02 \\
-S1 z-score  & 0.33    & 1.69 & 0.19 (0.25)    & 0.86    & $-3.94$ & 0.02 \\
-S2 s-score  & 0.10    & 1.80 & 0.06 (0.25)    & 0.25    & $-4.16$ & 0.03 \\
-S3 Bertram  & 0.12    & 1.93 & 0.06 (0.25)    & 0.27    & $-4.84$ & 0.02 \\
+\multicolumn{6}{l}{\emph{US, 56 stocks, 2011--2026, 10\,bp per trade per stock}} \\
+S0 Distance & $-0.09$ & 1.82 & $-0.05$ (0.25) & $-5.78$ & 0.02 \\
+S1 z-score  & 0.33    & 1.69 & 0.19 (0.25)    & $-3.94$ & 0.02 \\
+S2 s-score  & 0.10    & 1.80 & 0.06 (0.25)    & $-4.16$ & 0.03 \\
+S3 Bertram  & 0.12    & 1.93 & 0.06 (0.25)    & $-4.84$ & 0.02 \\
+\midrule
+\multicolumn{6}{l}{\emph{India, 26 NSE stocks, 2013--2026, 15\,bp per trade per stock}} \\
+S0 Distance & 0.43 & 2.70 & 0.16 (0.27) & $-4.60$ & 0.01 \\
+S1 z-score  & 0.41 & 1.07 & 0.38 (0.27) & $-3.25$ & 0.00 \\
+S2 s-score  & 0.37 & 1.15 & 0.32 (0.27) & $-2.51$ & 0.00 \\
+S3 Bertram  & 0.43 & 1.34 & 0.32 (0.27) & $-3.60$ & 0.00 \\
 \bottomrule
 \end{tabular}
-\caption{US, Jan 2011--Sep 2026, 10\,bp per leg, committed capital (results/table1\_us.csv).
-Sharpe standard error from \citet{lo2002}; NW $t$ is the Newey--West $t$-statistic of the
-mean daily return; beta is against SPY.}
+\caption{Results by market. Return and volatility (Vol) are annual, on all capital set aside for
+20 pairs. Sharpe: return per unit of risk (margin of error in brackets); Max DD: worst peak-to-trough
+loss; Beta: dependence on the local market (S\&P 500 or Nifty 50).}
 \label{tab:e5}
 \end{table}
 
-\begin{figure}[h]
+\begin{figure}[tb]
 \centering
-\fig{fig_e5_cumulative}{0.62}\hfill\fig{fig_e6_costs}{0.36}
-\caption{Left: cumulative return on committed capital, test block shaded; S1 ends 5\%
-up over 15.7 years, S0 slightly down, and no rule escapes the March 2020 swings.
-Right: Sharpe ratio against cost per leg \todo{break-even costs}.}
-\label{fig:e5}
+\fig{fig_e2_adf_power}{0.32}\hfill\fig{fig_e4_synthetic}{0.4}
+\caption{Left: how often the ADF test detects a gap that really closes, by half-life (rows, days)
+and amount of data (columns, days). Right: a perfect made-up pair, annual return as each
+real-world step is added (200 runs); the dashed line is the theory.}
+\label{fig:sim}
 \end{figure}
 
-\paragraph{Robustness.} \todo{M3: E6 break-even costs, E7 sensitivity, E8 US sectors and
-sub-periods (Table 2). M2: E9 share of pairs still cointegrated out of sample.}
-India (E8, 2013--2026, 15\,bp) repeats the US pattern. Only 3.2 of 55 candidate pairs
-pass Engle--Granger per window (up to 2.8 by chance), so about 3 of 20 slots are used.
-All four rules are positive, S1 best with Sharpe 0.38, but none is significant (SE 0.27,
-Newey--West $t\le 1.51$). Per trade the signal is stronger than in the US: after costs
-S1--S3 win 68--69\% of trades ($t$ = 3.6--6.1) and earn 42--90\,bp each, and the
-pre-registered time stop again lowers the Sharpe ratios (S1 to $-0.08$, S2 to $-0.03$).
-The Kalman hedge ratio (E10; \citealp{elliott2005,chan2013}) fails as specified, with a
-Sharpe ratio of $-0.12$: with $\delta=10^{-4}$ the hedge ratio adapts so fast that the
-forecast error keeps only 31\% of the spread's variation, and the standardised signal
-passes $\pm1$ on 0.5\% of days. Estimating the filter's noise by maximum likelihood on
-the formation window is left for future work.
+\begin{figure}[tb]
+\centering
+\fig{fig_e5_cumulative}{0.32}
+\caption{US stocks: growth of one dollar under each rule, final test period (2022--2026)
+shaded. S1 ends 5\% up over 15.7 years and S0 slightly down.}
+\label{fig:e5}
+\end{figure}
 
 % ----------------------------------------------------------------------------
 % OWNER: M3. About 1/3 page.
 \section{Conclusion}
-\todo{M3: answer the three questions with numbers; limitations: survivorship bias,
-fixed $\beta$ within a window, daily closes; future work: Kalman hedge ratio,
-\citet{leungli2015} optimal stopping.}
+With one year of data the ADF test reliably finds only fast mean reversion, and Engle--Granger
+passes about as many pairs as chance would, most of which stop mean-reverting soon after
+selection. The OU model and the optimal-band formula are correct, but $\kappa$ is hard to
+estimate and even a perfect pair earns only about half its theoretical return. Before costs the
+rules catch real mean reversion (about two trades in three win), but after costs no rule earns a
+significant return in the US or India: the weak link is pair selection, not the trading rules.
+Limits are survivorship bias, a fixed hedge ratio within each window and daily closes; a larger
+stock universe, more stable pair selection and a time-varying hedge ratio are natural next steps.
 
-\bibliographystyle{plainnat}
-\bibliography{refs}
 \end{document}

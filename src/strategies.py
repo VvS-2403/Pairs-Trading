@@ -11,26 +11,22 @@ from . import config as C
 from .ou import bertram_bands
 
 
-def band_positions(s, open_long, open_short, close_long, close_short, stop=None, max_hold=None):
-    """Generic two-sided band rule with optional stop-loss on |s| and time stop.
+def band_positions(s, open_long, open_short, close_long, close_short, stop=None):
+    """Generic two-sided band rule with optional stop-loss on |s|.
 
     Open long when s < open_long, open short when s > open_short, close a long
-    when s > close_long and a short when s < close_short. A time stop closes a
-    position once it has been held max_hold days. After a stop-loss or a time stop
-    the pair may reopen only once s is back inside the entry band.
+    when s > close_long and a short when s < close_short. After a stop-loss the
+    pair may reopen only once |s| is back inside the entry band.
     """
     pos = np.zeros(len(s))
-    p, blocked, age = 0, False, 0
+    p, blocked = 0, False
     for t, v in enumerate(s):
         if not np.isfinite(v):
             pos[t] = p
             continue
         if blocked and open_long <= v <= open_short:
             blocked = False
-        age = age + 1 if p != 0 else 0
         if p != 0 and stop is not None and abs(v) > stop:
-            p, blocked = 0, True
-        elif p != 0 and max_hold is not None and age >= max_hold:
             p, blocked = 0, True
         elif p == 1 and v > close_long:
             p = 0
@@ -38,9 +34,9 @@ def band_positions(s, open_long, open_short, close_long, close_short, stop=None,
             p = 0
         if p == 0 and not blocked:
             if v < open_long:
-                p, age = 1, 0
+                p = 1
             elif v > open_short:
-                p, age = -1, 0
+                p = -1
         pos[t] = p
     return pos
 
@@ -64,23 +60,19 @@ def positions(rule, x, spec, cost_rt=0.0, stop=C.STOP_LOSS, params=None):
 
     cost_rt is the round-trip cost in spread units, used only by Bertram's bands.
     params overrides the rule's default thresholds (sensitivity analysis, E7).
-    params["time_stop"] = k (S1 and S2 only, experiment E5c) closes a trade after
-    ceil(k x the pair's formation half-life) trading days; the headline rules do not use it.
     """
     if rule == "distance":
         e = (params or {}).get("entry", C.DISTANCE_ENTRY)
         z = x / spec.sd
         return band_positions(z, -e, e, 0.0, 0.0, stop)
-    k = (params or {}).get("time_stop")
-    max_hold = int(np.ceil(k * spec.half_life)) if k and np.isfinite(spec.half_life) else None
     if rule == "zscore":
         p = dict(C.ZSCORE, **(params or {}))
         z = x / spec.sd
-        return band_positions(z, -p["entry"], p["entry"], -p["exit"], p["exit"], stop, max_hold)
+        return band_positions(z, -p["entry"], p["entry"], -p["exit"], p["exit"], stop)
     if rule == "sscore":
         p = dict(C.SSCORE, **(params or {}))
         s = (x - spec.theta) / spec.sigma_eq
-        return band_positions(s, p["open_long"], p["open_short"], p["close_long"], p["close_short"], stop, max_hold)
+        return band_positions(s, p["open_long"], p["open_short"], p["close_long"], p["close_short"], stop)
     if rule == "bertram":
         m = bertram_bands(spec.kappa, spec.sigma, cost_rt)
         spec.extra["bertram_m"] = m / spec.sigma_eq
