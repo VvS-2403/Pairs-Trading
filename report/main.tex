@@ -194,7 +194,11 @@ distance rule is tested on the Sharpe difference with a circular block bootstrap
 % About 1 2/3 pages.
 \section{Results}\label{sec:results}
 
-\paragraph{Simulation study.} \todo{M3: E1 bias of $\hat\kappa$ at 252 days.}
+\paragraph{Simulation study.} The OU estimator is biased upward (E1, 1000 paths per cell,
+Figure~\ref{fig:e1e2} left): on a 252-day window $\hat\kappa$ overstates $\kappa$ by 18\% for
+a 7-day half-life and by 96\% for a 35-day half-life, an almost constant absolute bias of
+about 4.5 per year, in line with \citet{yu2012}. Fitted half-lives are therefore too short,
+and doubling the window halves the bias.
 ADF power (E2a, 300 stationary OU paths per cell) depends on how many half-lives the
 window contains. On our 252-day formation window ADF rejects a unit root 99\% of the time
 for a 5-day half-life and 74\% for 10 days, but only 30\% for 20 days and 9--13\% for
@@ -215,9 +219,11 @@ only on $c/\sigma_{eq}$; $\kappa$ scales the return, not the band.
 \begin{figure}[h]
 \centering
 \fig{fig_e1_ou_estimation}{0.48}\hfill\fig{fig_e2_adf_power}{0.48}
-\caption{Left: relative bias of $\hat\kappa$ against window length \todo{finding}.
+\caption{Left: relative bias of $\hat\kappa$ against window length (1000 paths per point);
+the bias is upward and falls roughly as 1/window.
 Right: ADF rejection rate at 5\% over half-life and window length; a 252-day window
 detects half-lives up to about 10 days.}
+\label{fig:e1e2}
 \end{figure}
 
 \paragraph{Synthetic pair (E4).} A pair with a known OU spread ($\kappa=25$, half-life 7
@@ -294,12 +300,48 @@ mean daily return; beta is against SPY.}
 \fig{fig_e5_cumulative}{0.62}\hfill\fig{fig_e6_costs}{0.36}
 \caption{Left: cumulative return on committed capital, test block shaded; S1 ends 5\%
 up over 15.7 years, S0 slightly down, and no rule escapes the March 2020 swings.
-Right: Sharpe ratio against cost per leg \todo{break-even costs}.}
+Right: Sharpe ratio against cost per leg (break-even cost per leg: S1 22\,bp, S3 13\,bp,
+S2 12\,bp, S0 8\,bp).}
 \label{fig:e5}
 \end{figure}
 
-\paragraph{Robustness.} \todo{M3: E6 break-even costs, E7 sensitivity, E8 US sectors and
-sub-periods (Table 2). M2: E9 share of pairs still cointegrated out of sample.}
+\paragraph{Robustness.} Costs decide the result (E6, Figure~\ref{fig:e5} right). Before
+costs every rule has a positive Sharpe ratio (0.18--0.35); S1 breaks even at 22\,bp per
+leg, S2 and S3 at 12--13\,bp and the distance rule at 8\,bp, so at 10\,bp only S1 keeps a
+margin. S0--S2 lose Sharpe linearly in cost, S2 fastest because it trades most, whereas
+Bertram's band widens with cost, so S3 trades less and degrades slowest (Sharpe $-0.14$
+at 30\,bp against $-0.47$ for S2). For S2 (E7) the Sharpe ratio rises with the entry band,
+from about 0.05 at $|s|=1$ to 0.17 at 2--2.5, because wider bands trade less; the exit
+level matters little. A 504-day formation window gives 0.19 against 0.05 for 252 days,
+consistent with E1 and E2a, while trading only the top 5 or 10 pairs or adding a
+stop-loss at $|s|>4$ makes S2 worse ($-0.05$, 0.03 and $-0.09$). Every difference is
+below one standard error (0.26), so the headline keeps the paper's settings.
+
+No rule is positive in every sub-period (E8, Table~\ref{tab:e8}). The distance rule
+decays from 0.20 in 2011--14 to $-0.24$ in 2021--26, as \citet{dofaff2010} report for
+later samples, while S1 is the most consistent recently (0.27 and 0.46); every rule is
+flat or negative in 2020. By sector, banks carry the OU rules (Sharpe 0.40--0.50 for
+S1--S3, which trade the same bank pairs), retail and technology lose for every rule, and
+the distance rule loses most in utilities ($-0.27$), the sector it picks most often (292
+of 640 pair-windows), where similar-looking prices need not be cointegrated.
+\todo{M2: E9 share of pairs still cointegrated out of sample.}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lrrrr}
+\toprule
+Strategy & 2011--14 & 2015--19 & 2020 & 2021--26 \\
+\midrule
+S0 Distance & 0.20 & $-0.06$ & 0.08 & $-0.24$ \\
+S1 z-score  & 0.02 & 0.27 & $-0.03$ & 0.46 \\
+S2 s-score  & 0.27 & $-0.15$ & $-0.04$ & 0.09 \\
+S3 Bertram  & 0.08 & 0.24 & $-0.07$ & 0.02 \\
+\bottomrule
+\end{tabular}
+\caption{US Sharpe ratio by sub-period, 10\,bp per leg (results/e8\_subperiods.csv;
+sectors in results/e8\_sectors.csv).}
+\label{tab:e8}
+\end{table}
 India (E8, 2013--2026, 15\,bp) repeats the US pattern. Only 3.2 of 55 candidate pairs
 pass Engle--Granger per window (up to 2.8 by chance), so about 3 of 20 slots are used.
 All four rules are positive, S1 best with Sharpe 0.38, but none is significant (SE 0.27,
@@ -315,9 +357,31 @@ the formation window is left for future work.
 % ----------------------------------------------------------------------------
 % OWNER: M3. About 1/3 page.
 \section{Conclusion}
-\todo{M3: answer the three questions with numbers; limitations: survivorship bias,
-fixed $\beta$ within a window, daily closes; future work: Kalman hedge ratio,
-\citet{leungli2015} optimal stopping.}
+\textbf{Do ADF and Engle--Granger find mean-reverting spreads?} Only fast ones. On a
+252-day window ADF detects half-lives up to about 10 days, and the residual test must use
+Engle--Granger critical values: plain ADF values reject 17\% of independent random-walk
+pairs instead of 5\%. Even with the correct test, 8.4 of 196 US pairs pass per window,
+about as many as chance, so many traded pairs are false positives.
+
+\textbf{How well does the OU model describe them?} The model is internally consistent:
+Bertram's cycle time matches simulation and the P\&L accounting reproduces the theoretical
+return on a synthetic pair. Its estimates are not: $\hat\kappa$ is biased upward by 18\%
+for a 7-day half-life and 96\% for a 35-day one, and daily monitoring, estimation and
+selection together halve the theoretical return of a perfect OU pair (E4).
+
+\textbf{Do OU rules beat the distance rule after costs?} In point estimates, yes: S1--S3
+beat S0 in the US (Sharpe 0.06--0.19 against $-0.05$) and in India (0.32--0.38 against
+0.16), they win 63--69\% of trades, and S1 survives costs up to 22\,bp per leg against
+8\,bp for S0. None of the differences is significant, the ranking changes across
+sub-periods, and most of the edge is lost on pairs that stop reverting. The signal is
+real at the level of single trades; the bottleneck is selecting genuinely cointegrated
+pairs, not the trading rule.
+
+\textbf{Limitations and future work.} The universe is today's large caps (survivorship
+bias), the hedge ratio is fixed within each window and only daily closes are used.
+Natural extensions are a Kalman hedge ratio with noise variances estimated by maximum
+likelihood, longer formation windows (E7), bias-corrected estimates of $\kappa$
+\citep{yu2012} and the optimal-stopping rules of \citet{leungli2015}.
 
 \bibliographystyle{plainnat}
 \bibliography{refs}
