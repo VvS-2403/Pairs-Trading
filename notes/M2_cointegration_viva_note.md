@@ -46,6 +46,16 @@ keep it only if **both** directions reject at 5%.
 - Caveats: ADF on 126 days has limited power (E2a), which is why we compare with 52% rather
   than 100%; and a stronger test result at selection does not predict a higher profit.
 
+## 6b. Other checks (work by Nitin Sureshkumar)
+- **Latest window (T13):** only 3 of 196 pairs pass Engle-Granger (JPM/BAC, TXN/INTC, PEP/HSY), fewer than the
+  10 expected by chance; none survives Benjamini-Hochberg.
+- **Distance baseline S0 (T29):** ranking by log prices instead of price indices keeps 89% of the top 20 pairs.
+  Centring the gap on the first formation day (as in the original rule) gives Sharpe -0.18 instead of -0.05, both
+  within one standard error of zero, so the ranking of the rules does not change.
+- **India selection (T31):** 3.2 of 55 pairs pass per window against 2.75 by chance; 83 pairs in total, 42 of them banks.
+- **Data (T08):** one-day moves above 25% were checked and match real events, so no price was edited.
+- **Tests:** tests/test_data.py, test_cointegration.py and test_selection.py (40 checks).
+
 ## 7. Likely viva questions
 - *What is cointegration in one sentence?* Two wandering prices with a combination that does
   not wander.

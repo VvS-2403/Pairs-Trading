@@ -26,7 +26,7 @@ src/strategies.py       trading rules and the Kalman hedge ratio
 src/backtest.py         walk-forward engine with one-day execution lag and costs
 src/metrics.py          Sharpe with Lo (2002) SE, Newey-West t, drawdown, beta, Sharpe-difference bootstrap
 src/synthetic.py        E4: synthetic OU pair and the theory-to-pipeline friction ladder
-tests/                  unit tests of the engine and metrics (run `pytest -q`)
+tests/                  unit tests of the engine, metrics, data loading, cointegration tests and pair selection (run `pytest -q`)
 src/plots.py            figure style; savefig() writes figs/<name>.png and .eps
 data/raw/               cached prices (see data/raw/README.md for source and date)
 figs/  results/         written by the notebook
@@ -36,7 +36,7 @@ figs/  results/         written by the notebook
 
 ```bash
 pip install -r requirements.txt
-pytest -q                      # 20 checks of the engine and metrics, about 3 s
+pytest -q                      # 60 checks, about 15 s
 jupyter notebook notebook.ipynb
 ```
 

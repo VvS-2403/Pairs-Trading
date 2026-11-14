@@ -133,7 +133,8 @@ length and the expected return per unit time
 With symmetric bands $a=-m$ we maximise $\mu$ over $m$ numerically.
 The two benchmarks use no OU model: the distance rule (S0) picks the pairs with the smallest
 sum of squared differences of normalised prices, sets $\beta=1$, opens when their gap moves two
-formation standard deviations from zero and closes when the prices cross; the cointegration
+formation standard deviations from zero and closes when the prices cross; centring that gap on the first rather than the last formation day, as in the original
+rule, lowers its Sharpe ratio from $-0.05$ to $-0.18$, still within noise; the cointegration
 z-score rule (S1) standardises the Engle--Granger spread by its formation standard deviation,
 $z_t=X_t/\hat\sigma_X$, opening at $|z|>2$ and closing at $|z|<0.5$.
 
