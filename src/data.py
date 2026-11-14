@@ -88,7 +88,7 @@ def benchmark_returns(market):
 def jump_report(px):
     """List one-day moves above JUMP_FLAG (possible split or spin-off errors)."""
     r = px.pct_change(fill_method=None)
-    hits = r[(r.abs() > JUMP_FLAG)].stack()
+    hits = r.where(r.abs() > JUMP_FLAG).stack().dropna()
     hits.index.names = ["date", "ticker"]
     return hits.rename("return").reset_index()
 

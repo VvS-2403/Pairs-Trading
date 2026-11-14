@@ -1,0 +1,12 @@
+,India selection
+Walk-forward windows,27
+First / last trading day,2013-01-10 / 2026-09-29
+Candidate within-sector pairs per window,55
+Tickers admitted per window (min),26
+Pairs passing Engle-Granger per window,3.2222222222222223
+Expected by chance alone (5% of candidates),2.75
+Pairs surviving Benjamini-Hochberg per window,1.0
+Pairs passing all filters per window,3.074074074074074
+Windows with no pair,4
+Pairs selected in total,83
+Longest fitted half-life (days),11.559775342475072
