@@ -1,0 +1,31 @@
+% Slide 11 | M1 (Lakshya Satya) | 1:00 | E4, the perfect pair
+\begin{frame}{What would a perfect pair earn?}
+\framesubtitle{Slide 11 \textbullet\ M1 \textbullet\ 1:00 \textbullet\ E4 \textbullet\ a made-up pair that follows the OU model exactly, run 200 times through the real pipeline}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.56\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{fig_e4_synthetic}
+\column{0.40\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}From theory to practice}\\[2pt]
+  \scriptsize\setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}lr@{}}
+    \toprule
+    Annual return, theory (slide 9) & 24.2\% \\
+    Fine-grid simulation & 24.3\% \\
+    \midrule
+    Lost to pair selection & $-4.5$ pts \\
+    Daily prices, one-day delay & $-3.3$ \\
+    Estimating the hedge ratio & $-2.3$ \\
+    Other estimates & $-1.0$ \\
+    Six-monthly restarts & $-0.5$ \\
+    \midrule
+    \textbf{Full pipeline} & \textbf{12.7\%} \\
+    \bottomrule
+  \end{tabular}\\[3pt]
+  \footnotesize
+  the fine-grid simulation matching the theory shows the profit-and-loss accounting is right
+\end{columns}
+\pairTakeaway{Even a \textbf{perfect pair keeps only about half} of its theoretical return, and the biggest single loss is finding it: the selection test picks it in only 74\% of windows.}
+\end{frame}

@@ -1,0 +1,34 @@
+% Slide 13 | M5 (Saatwik Tiwari) | 1:30 | E8: India
+\begin{frame}{Does it hold in India?}
+\framesubtitle{Slide 13 \textbullet\ M5 \textbullet\ 1:30 \textbullet\ E8 \textbullet\ 26 NSE stocks in 5 sectors, 2013--2026, 15 bp per trade per stock}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.57\textwidth}
+  \scriptsize\setlength{\tabcolsep}{3.5pt}
+  \begin{tabular}{@{}lrrrr@{}}
+    \toprule
+    Rule & Return \%/yr & Sharpe (SE) & Trades won & Profit per trade \\
+    \midrule
+    S0 Distance & 0.43 & 0.16 (0.27) & 54\% & 24 bp \\
+    S1 z-score  & 0.41 & \textbf{0.38} (0.27) & 68\% & 90 bp \\
+    S2 s-score  & 0.37 & 0.32 (0.27) & 68\% & 42 bp \\
+    S3 Bertram  & 0.43 & 0.32 (0.27) & 69\% & 57 bp \\
+    \bottomrule
+  \end{tabular}\\[4pt]
+  \footnotesize\raggedright
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item all four rules gain slightly, \textbf{none significantly}: the same picture as the US
+    \item in the last test period (2022--2026) S1 to S3 stay positive (Sharpe 0.28 to 0.82) and S0 turns negative; that is only 4.7 years, so the margin of error is about 0.46
+    \item after costs the cointegration rules win about two trades in three
+  \end{itemize}
+\column{0.39\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}Why so little: few pairs pass}
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item 55 candidate pairs per window, only about 3 pass the selection test; chance alone gives 2.8
+    \item 4 of 27 windows have no pair at all, so about 3 of the 20 capital slots are used
+    \item 83 pairs selected in 13 years, 42 of them banks
+  \end{itemize}
+\end{columns}
+\pairTakeaway{India repeats the US result: a real per-trade signal (up to 90 bp after costs), too few genuine pairs for a significant overall return.}
+\end{frame}

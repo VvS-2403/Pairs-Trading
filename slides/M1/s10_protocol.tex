@@ -1,0 +1,41 @@
+% Slide 10 | M1 (Lakshya Satya) | 1:00 | walk-forward protocol and no look-ahead
+\begin{frame}{No look-ahead: how every trade is simulated}
+\framesubtitle{Slide 10 \textbullet\ M1 \textbullet\ 1:00 \textbullet\ the same protocol for all four rules, in the US and India}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.52\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}Walk-forward protocol}\\[3pt]
+  \centering
+  \begin{tikzpicture}[
+      box/.style={rectangle, draw=deckAccent, fill=deckSoft, thick, rounded corners=2pt,
+                  minimum height=0.62cm, font=\scriptsize, text=deckInk},
+      arr/.style={-{Stealth[length=2mm]}, thick, draw=deckInk!70}]
+    \node[box, minimum width=2.4cm] (F) {Formation, 252 days};
+    \node[box, minimum width=1.9cm, right=0.5cm of F] (T) {Trading, 126 days};
+    \node[box, minimum width=1.4cm, right=0.5cm of T] (R) {Roll by 126};
+    \draw[arr] (F) -- (T); \draw[arr] (T) -- (R);
+  \end{tikzpicture}\\[4pt]
+  \raggedright
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item pairs, $\beta$ and the OU parameters come from the formation year only and stay frozen
+    \item a signal at the close of day $t$ is traded at the close of $t+1$
+    \item open positions are closed at the end of the window
+    \item costs: 10 bp (US) or 15 bp (India) per stock, per trade
+  \end{itemize}
+\column{0.44\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}What one trade earns}
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item a position of $+1$ is long \$1 of $A$ and short \$$\beta$ of $B$
+    \item daily return on the capital tied up: $(r^A_t-\beta r^B_t)/(1+|\beta|)$, minus the cost of each trade
+    \item returns are measured on all 20 capital slots, idle ones included
+  \end{itemize}
+  \vspace{2pt}
+  \textbf{\color{deckAccent}How we know there is no look-ahead}
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item a test scrambles all prices after a date and checks that no earlier return changes
+  \end{itemize}
+\end{columns}
+\pairTakeaway{Letting the parameters peek at the trading window would raise the s-score Sharpe ratio from about \textbf{0 to 3.6}: that is why every input is frozen before a trade is placed.}
+\end{frame}

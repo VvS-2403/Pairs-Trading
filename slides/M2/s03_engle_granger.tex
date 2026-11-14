@@ -1,0 +1,36 @@
+% Slide 3 | M2 (Nitin Sureshkumar) | 1:00 | Engle--Granger and E2b
+\begin{frame}{Engle--Granger: testing a pair needs a stricter threshold}
+\framesubtitle{Slide 3 \textbullet\ M2 \textbullet\ 1:00 \textbullet\ E2b \textbullet\ 1{,}000 pairs of independent random walks, never cointegrated}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.52\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}Two steps}
+  \begin{enumerate}\setlength{\itemsep}{1pt}
+    \item regress $a_t=\mu+\beta b_t+u_t$ on the formation year; the residual $\hat u_t$ is the estimated spread
+    \item run the ADF test on $\hat u_t$
+  \end{enumerate}
+  \vspace{2pt}
+  \textbf{\color{deckAccent}Why the threshold changes}
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item OLS picks $\hat\beta$ to make $\hat u_t$ look as stable as possible, so even unrelated prices can pass: a \emph{spurious regression}
+    \item the critical value must be stricter: about $-3.34$ at 5\%, instead of $-2.86$
+    \item regressing $a$ on $b$ and $b$ on $a$ can disagree, so a pair must pass \textbf{both directions}
+  \end{itemize}
+\column{0.43\textwidth}
+  \footnotesize
+  \textbf{\color{deckAccent}E2b: how often a false pair is found}\\[3pt]
+  \scriptsize\setlength{\tabcolsep}{5pt}
+  \begin{tabular}{@{}lr@{}}
+    \toprule
+    Critical values & Wrongly flagged \\
+    \midrule
+    Plain ADF          & \textbf{16.9\%} \\
+    Engle--Granger     & \textbf{6.2\%} \\
+    \midrule
+    Correct level      & 5\% \\
+    \bottomrule
+  \end{tabular}
+\end{columns}
+\pairTakeaway{Plain ADF would call \textbf{one unrelated pair in six} cointegrated; with Engle--Granger the error is close to the intended 5\%.}
+\end{frame}

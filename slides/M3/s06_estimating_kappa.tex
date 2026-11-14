@@ -1,0 +1,30 @@
+% Slide 6 | M3 (Tanishk Tasgaonkar) | 1:30 | E1: how accurately can kappa be estimated?
+\begin{frame}{Estimating the speed $\kappa$ is harder than it looks}
+\framesubtitle{Slide 6 \textbullet\ M3 \textbullet\ 1:30 \textbullet\ E1 \textbullet\ 1{,}000 simulated paths per point, true speed known}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.50\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{fig_e1_ou_estimation}
+\column{0.46\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}With one year (252 days) of data}\\[2pt]
+  \scriptsize\setlength{\tabcolsep}{5pt}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    True speed $\kappa$ & Half-life & $\hat\kappa$ too high by \\
+    \midrule
+    50 & 3.5 days & 8\% \\
+    25 & 7 days   & 18\% \\
+    10 & 17 days  & 46\% \\
+    5  & 35 days  & 96\% \\
+    \bottomrule
+  \end{tabular}\\[4pt]
+  \footnotesize
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item the bias is always upward, and the error \textbf{halves} each time the window doubles
+    \item slower pairs are hit hardest
+  \end{itemize}
+\end{columns}
+\pairTakeaway{Pairs look \textbf{faster, and more attractive, than they really are}: fitted half-lives are too short, which we see again in E4 and E5.}
+\end{frame}

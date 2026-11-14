@@ -1,0 +1,31 @@
+% Shared look of the deck. Loaded by main_slides.tex and by every standalone preview (after \documentclass).
+% Figures come from ../figs/ (main deck, compiled in slides/) or ../../figs/ (previews, compiled inside M1/ ... M5/).
+\usepackage{graphicx,booktabs,amssymb,amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\graphicspath{{../figs/}{../../figs/}}
+
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\definecolor{deckInk}{HTML}{1F2933}
+\definecolor{deckAccent}{HTML}{1F4E79}
+\definecolor{deckMuted}{HTML}{5F6B7A}
+\definecolor{deckSoft}{HTML}{EAF1F8}
+\definecolor{deckRule}{HTML}{9DB8D2}
+\setbeamercolor{frametitle}{fg=deckInk}
+\setbeamercolor{framesubtitle}{fg=deckInk!60}
+\setbeamercolor{structure}{fg=deckAccent}
+\setbeamerfont{frametitle}{series=\bfseries,size=\large}
+\setbeamerfont{framesubtitle}{size=\scriptsize}
+\setbeamertemplate{frametitle}{%
+  \vspace*{4pt}\insertframetitle\par
+  {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}
+  \vskip3pt{\color{deckAccent}\hrule height 0.6pt}\vskip-4pt}
+\setbeamertemplate{footline}{\hfill{\scriptsize\color{deckInk!50}\insertframenumber}\hspace*{10pt}\vspace*{6pt}}
+\setbeamersize{text margin left=18pt,text margin right=18pt}
+
+% one-sentence takeaway box used at the bottom of most slides
+\providecommand{\pairTakeaway}[1]{%
+  \par\vspace{3pt}\noindent
+  \fcolorbox{deckRule}{deckSoft}{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{\footnotesize\color{deckInk}#1}}}
+\newcommand{\erfi}{\operatorname{erfi}}

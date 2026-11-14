@@ -1,0 +1,33 @@
+% Slide 5 | M3 (Tanishk Tasgaonkar) | 2:00 | the Ornstein--Uhlenbeck model
+\begin{frame}{The spread as an Ornstein--Uhlenbeck process}
+\framesubtitle{Slide 5 \textbullet\ M3 \textbullet\ 2:00 \textbullet\ one stochastic differential equation, solved exactly with It\^o's lemma}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.50\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}The model}
+  \[ dX_t=\kappa(\theta-X_t)\,dt+\sigma\,dW_t,\qquad \kappa>0 \]
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item $\kappa$: speed of the pull back; $\theta$: long-run level; $\sigma$: noise
+    \item It\^o's lemma on $e^{\kappa t}X_t$ removes the drift:
+  \end{itemize}
+  {\scriptsize\[ X_t=\theta+(X_0-\theta)e^{-\kappa t}+\sigma\!\int_0^t e^{-\kappa(t-s)}dW_s \]}
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item Gaussian, with variance $\sigma^2(1-e^{-2\kappa t})/(2\kappa)$
+    \item stationary law $N(\theta,\sigma^2/2\kappa)$; a gap halves in $\ln 2/\kappa$ (the \emph{half-life})
+  \end{itemize}
+\column{0.46\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}Exact one-day step}\quad {\scriptsize ($\Delta=1/252$)}
+  {\scriptsize\[ X_{t+\Delta}=a+bX_t+\varepsilon_t,\quad b=e^{-\kappa\Delta},\quad a=\theta(1-b) \]}
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item an AR(1) with Gaussian errors, so \textbf{OLS is maximum likelihood}
+    \item no discretisation error (an Euler step would only give $b\approx1-\kappa\Delta$)
+  \end{itemize}
+  \vspace{2pt}
+  \textbf{\color{deckAccent}Estimates from one window}
+  {\scriptsize\[ \hat\kappa=-\frac{\ln\hat b}{\Delta},\quad \hat\theta=\frac{\hat a}{1-\hat b},\quad \sigma_{eq}=\frac{\hat s_\varepsilon}{\sqrt{1-\hat b^2}} \]}
+  valid only when $0<\hat b<1$
+\end{columns}
+\pairTakeaway{The discrete step is \textbf{exact}, so a regression of tomorrow's spread on today's gives the speed, the level and the noise.}
+\end{frame}

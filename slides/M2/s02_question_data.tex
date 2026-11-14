@@ -1,0 +1,35 @@
+% Slide 2 | M2 (Nitin Sureshkumar) | 1:00 | the question and the data
+\begin{frame}{The question and the data}
+\framesubtitle{Slide 2 \textbullet\ M2 \textbullet\ 1:00 \textbullet\ do two related stocks drift apart for good, or does their gap close?}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.52\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}The idea}
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item two related stocks, such as KO and PEP, tend to move together
+    \item when the gap opens, buy the cheap one and sell the expensive one
+    \item it pays only if the gap \textbf{really closes}
+  \end{itemize}
+  \vspace{3pt}
+  \textbf{\color{deckAccent}The spread}\\[2pt]
+  \centering $X_t=\ln P^A_t-\beta\ln P^B_t-\mu$\\[2pt]
+  \raggedright\scriptsize $\beta,\mu$ from a regression on the formation year only
+\column{0.44\textwidth}
+  \scriptsize\setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    & US & India (NSE) \\
+    \midrule
+    Stocks         & 56 large caps  & 26 \\
+    Sectors        & 7              & 5 \\
+    Period         & 2010--2026     & 2012--2026 \\
+    Candidate pairs per window & 196 & 55 \\
+    Cost per trade, per stock  & 10 bp & 15 bp \\
+    \bottomrule
+  \end{tabular}\\[4pt]
+  \footnotesize
+  Daily adjusted closes from Yahoo Finance; pairs only within a sector.
+\end{columns}
+\pairTakeaway{Today's large caps give the sample \textbf{survivorship bias}, so any edge we find would be overstated.}
+\end{frame}

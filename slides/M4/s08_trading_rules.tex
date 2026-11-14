@@ -1,0 +1,23 @@
+% Slide 8 | M4 (Vismay Shanbhag) | 0:45 | the four trading rules
+\begin{frame}{Four trading rules, one protocol}
+\framesubtitle{Slide 8 \textbullet\ M4 \textbullet\ 0:45 \textbullet\ thresholds come from the original rules and are never tuned on our results}
+\vspace{-2pt}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l@{\ \ }p{2.8cm}p{5.9cm}p{4.6cm}@{}}
+  \toprule
+  & Rule & Open a trade when & Close it when \\
+  \midrule
+  S0 & Distance & the gap of normalised prices moves $2\sigma$ & the prices cross \\
+  S1 & Cointegration z-score & $|z|>2$ & $|z|<0.5$ \\
+  S2 & OU s-score & $s<-1.25$ (long), $s>1.25$ (short) & $s>-0.50$ (long), $s<0.75$ (short) \\
+  S3 & Optimal bands & $|s|\ge m^*$, the best band for the cost (slide 9) & at the opposite band: long flips to short \\
+  \bottomrule
+\end{tabular}
+\vspace{6pt}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item S0 picks the pairs with the smallest sum of squared price gaps; S1 to S3 use the selection of slide 3
+  \item $z=X/\sigma_X$ standardises the spread by its formation standard deviation; $s=(X-\hat\theta)/\sigma_{eq}$ centres it on the fitted OU level
+  \item a position of $+1$ means long $\$1$ of stock $A$ and short $\$\beta$ of stock $B$
+\end{itemize}
+\pairTakeaway{Same pairs, same costs, same timing for S1 to S3; only the \textbf{entry and exit levels} differ.}
+\end{frame}

@@ -1,0 +1,23 @@
+% Slide 7 | M4 (Vismay Shanbhag) | 1:30 | ADF test and E2a
+\begin{frame}{The ADF test asks whether $\kappa=0$, and one year sees only fast pairs}
+\framesubtitle{Slide 7 \textbullet\ M4 \textbullet\ 1:30 \textbullet\ E2a \textbullet\ 300 simulated mean-reverting spreads per cell}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.50\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}Why it tests mean reversion}
+  {\scriptsize\[ \Delta X_t=a+\gamma X_{t-1}+\sum_{i=1}^{p}\delta_i\,\Delta X_{t-i}+\varepsilon_t,\quad \gamma=e^{-\kappa\Delta}-1 \]}
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item $H_0:\gamma=0$ is exactly $H_0:\kappa=0$ (a random walk); $H_1:\gamma<0$
+    \item the lagged differences soak up day-to-day correlation in the noise; $p$ is chosen by AIC
+    \item under $H_0$ the statistic is not Student-$t$: the Dickey--Fuller 5\% critical value is $-2.86$, not $-1.65$
+  \end{itemize}
+  \vspace{3pt}
+  \textbf{\color{deckAccent}How often it finds a gap that really closes}\\[1pt]
+  {\scriptsize 5-day half-life: 99\% \;\textbullet\; 10 days: 74\% \;\textbullet\; 20 days: 30\% \;\textbullet\; 40 to 80 days: 9 to 13\% (chance is 5\%)}
+\column{0.46\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{fig_e2_adf_power}
+\end{columns}
+\pairTakeaway{A one-year window reliably detects only \textbf{half-lives up to about 10 days}, and every pair we select has a half-life of 21 days or less.}
+\end{frame}

@@ -1,0 +1,29 @@
+% Slide 12 | M4 (Vismay Shanbhag) | 1:15 | E5, the headline backtest on US stocks
+\begin{frame}{No rule earns a significant return on US stocks, yet the signal is real}
+\framesubtitle{Slide 12 \textbullet\ M4 \textbullet\ 1:15 \textbullet\ E5 \textbullet\ 56 stocks, 2011--2026, 10 bp per trade per stock, new pairs every six months}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.47\textwidth}
+  \scriptsize\setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    Rule & Return \%/yr & Sharpe (SE) & Max DD \% \\
+    \midrule
+    S0 Distance & $-0.09$ & $-0.05$ (0.25) & $-5.8$ \\
+    S1 z-score  & 0.33 & \textbf{0.19} (0.25) & $-3.9$ \\
+    S2 s-score  & 0.10 & 0.06 (0.25) & $-4.2$ \\
+    S3 Bertram  & 0.12 & 0.06 (0.25) & $-4.8$ \\
+    \bottomrule
+  \end{tabular}\\[4pt]
+  \footnotesize\raggedright
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item every Sharpe ratio is within one margin of error of zero; the rules cannot be ranked with confidence
+    \item beta to the market is about 0.02
+    \item \textbf{the signal is real:} before costs S1 earns about 44 bp per trade, and S1 to S3 win about two trades in three
+  \end{itemize}
+\column{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{fig_e5_cumulative}
+\end{columns}
+\pairTakeaway{The losses come from the \textbf{28--45\% of trades that never close} within six months (about $-3\%$ each); they are common because only about 8 of 196 candidate pairs pass the test, no more than chance.}
+\end{frame}

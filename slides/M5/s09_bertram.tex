@@ -1,0 +1,27 @@
+% Slide 9 | M5 (Saatwik Tiwari) | 2:00 | Bertram's optimal bands and E3
+\begin{frame}{Bertram's optimal trading bands}
+\framesubtitle{Slide 9 \textbullet\ M5 \textbullet\ 2:00 \textbullet\ E3 \textbullet\ first-passage times of the centred spread, formula checked against simulation}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.50\textwidth}
+  \footnotesize\raggedright
+  \textbf{\color{deckAccent}One cycle of a trade}\\[1pt]
+  enter at $a$, exit at $m>a$, pay the round-trip cost $c$; the expected cycle time solves the backward equation $\tfrac12\sigma^2u''-\kappa x\,u'=-1$:
+  {\scriptsize\[ \mathbb{E}[T]=\frac{\pi}{\kappa}\Big[\erfi\!\Big(\frac{m\sqrt\kappa}{\sigma}\Big)-\erfi\!\Big(\frac{a\sqrt\kappa}{\sigma}\Big)\Big] \]
+  \[ \mu(a,m)=\frac{m-a-c}{\mathbb{E}[T]}\quad\text{(return per unit time)} \]}
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item symmetric bands $a=-m$: maximise $\mu$ over $m$ to get the optimal band $m^*$; a higher cost pushes $m^*$ outwards
+  \end{itemize}
+  \vspace{2pt}
+  \textbf{\color{deckAccent}What E3 shows}
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item the formula is \textbf{exact}: it matches a direct numerical integration to $10^{-8}$
+    \item $m^*/\sigma_{eq}$ depends only on the cost relative to $\sigma_{eq}$, not on $\kappa$
+  \end{itemize}
+\column{0.46\textwidth}
+  \centering
+  \includegraphics[width=\linewidth,trim=0bp 0bp 374bp 0bp,clip]{fig_e3_bertram}\\[2pt]
+  {\scriptsize E3: expected cycle time, formula against simulation checked every 1/200 day and daily}
+\end{columns}
+\pairTakeaway{Checking the spread once a day makes a cycle \textbf{35--99\% longer} than the continuous-time formula assumes, because the spread can cross a band and return between two looks.}
+\end{frame}

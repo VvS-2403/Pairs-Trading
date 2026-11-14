@@ -21,3 +21,6 @@ results/cache/
 *.toc
 *.synctex.gz
 *-eps-converted-to.pdf
+*.nav
+*.snm
+*.vrb
