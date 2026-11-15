@@ -1,7 +1,7 @@
 numpy>=1.26
 pandas>=2.1
 scipy>=1.11
-statsmodels>=0.14
+statsmodels>=0.15        # 0.14 breaks with pandas 3
 matplotlib>=3.8
 yfinance>=0.2.40
 notebook>=7.0

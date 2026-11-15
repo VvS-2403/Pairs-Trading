@@ -7,7 +7,7 @@ published trading rules on US and Indian stocks (2010-2026):
 | ID | Strategy | Paper |
 | --- | --- | --- |
 | S0 | Distance method | Gatev, Goetzmann & Rouwenhorst (2006) |
-| S1 | Cointegration z-score | Engle & Granger (1987) |
+| S1 | Cointegration z-score | Chan (2013), on the Engle & Granger (1987) spread |
 | S2 | OU s-score | Avellaneda & Lee (2010) |
 | S3 | OU optimal bands | Bertram (2010) |
 
@@ -54,7 +54,7 @@ Pair selection is cached in `results/cache/` after the first run.
 
 ## Status
 
-`backtest.py` and `metrics.py` are tested (`tests/`, 20 tests) and the pipeline runs end to end
+`backtest.py` and `metrics.py` are tested (`tests/test_backtest.py`, `tests/test_metrics.py`: 20 of the 60 tests) and the pipeline runs end to end
 on real data (notebook section 7). Other modules are tested by their owners in their sections.
 
 ## Decision log (engine and metrics, M1)
@@ -64,7 +64,7 @@ on real data (notebook section 7). Other modules are tested by their owners in t
 | Walk-forward 252-day formation, 126-day trading, roll 126 | Gatev et al. (2006) protocol; every trade uses only past data | Single in-/out-of-sample split: one test period, no re-estimation |
 | Non-overlapping trading blocks | One clean daily return series, simple to test | Gatev's six overlapping portfolios: smoother, harder to audit |
 | Tickers allowed in a window decided on formation data only | Filtering on the trading window drops stocks that later stop trading (look-ahead) | Old draft filtered on formation + trading window |
-| Signal at close t, trade at close t+1 | Cannot trade at the close used to compute the signal; Gatev's one-day wait | Same close (lag 0): measured, adds about 0.03-0.1 Sharpe |
+| Signal at close t, trade at close t+1 | Cannot trade at the close used to compute the signal; Gatev's one-day wait | Same close (lag 0): measured, adds about 0.02-0.11 Sharpe |
 | Forced close at window end | Parameters are re-estimated each window; positions must not outlive them | Carry positions: mixes two parameter sets |
 | Return on gross capital, pos (r_a - beta r_b) / (1 + abs(beta)) | Tracks dX of the log spread; comparable across pairs with different beta | Return on long leg only: overstates by 1 + beta |
 | Cost per leg per transaction on gross traded; flip = 2 units | Every share bought or sold pays the spread | Per round trip: hides the cost of flips |
