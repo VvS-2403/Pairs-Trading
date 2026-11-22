@@ -1,0 +1,20 @@
+% Slide 3 | Model | M4 (Vismay Shanbhag) | 1:00 | the ADF test
+\begin{frame}{The ADF test asks whether $\kappa=0$}
+\framesubtitle{Slide 3 \textbullet\ Model \textbullet\ M4 \textbullet\ 1:00}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.54\textwidth}
+  \normalsize\raggedright
+  \textbf{\color{deckAccent}The regression}
+  {\small\[ \Delta X_t=a+\gamma X_{t-1}+\sum_{i=1}^{p}\delta_i\,\Delta X_{t-i}+\varepsilon_t \]
+  \[ \gamma=e^{-\kappa\Delta}-1 \]}
+\column{0.42\textwidth}
+  \normalsize\raggedright
+  \begin{itemize}\setlength{\itemsep}{2pt}
+    \item $H_0:\gamma=0$ is $H_0:\kappa=0$, a random walk
+    \item lagged differences clean the noise; lags chosen by AIC
+    \item 5\% critical value $-2.86$, not $-1.65$
+  \end{itemize}
+\end{columns}
+\pairTakeaway{How often the test succeeds depends on $\kappa T$, the number of half-lives in the window (E2a).}
+\end{frame}

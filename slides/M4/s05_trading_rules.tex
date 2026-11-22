@@ -1,0 +1,18 @@
+% Slide 5 | Model | M4 (Vismay Shanbhag) | 1:00 | the four trading rules
+\begin{frame}{Four trading rules}
+\framesubtitle{Slide 5 \textbullet\ Model \textbullet\ M4 \textbullet\ 1:00}
+\vspace{-2pt}
+\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l@{\ \ }p{3.5cm}p{4.9cm}p{4.2cm}@{}}
+  \toprule
+  & Rule & Open when & Close when \\
+  \midrule
+  S0 & Distance (Gatev et al.) & gap of normalised prices $>2\sigma$ & the prices cross \\
+  S1 & z-score (Chan) & $|z|>2$ & $|z|<0.5$ \\
+  S2 & s-score (Avellaneda \& Lee) & $s<-1.25$ long, $s>1.25$ short & $s>-0.50$ long, $s<0.75$ short \\
+  S3 & Optimal bands (Bertram) & $|s|\ge m^*$ & the opposite band \\
+  \bottomrule
+\end{tabular}\\[5pt]
+{\footnotesize $z=X/\sigma_X$ and $s=(X-\hat\theta)/\sigma_{eq}$, where $X$ is the Engle--Granger spread}
+\pairTakeaway{Thresholds are fixed in advance and never tuned on our results.}
+\end{frame}

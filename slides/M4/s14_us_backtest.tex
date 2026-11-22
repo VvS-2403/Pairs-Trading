@@ -1,0 +1,28 @@
+% Slide 14 | Results | M4 (Vismay Shanbhag) | 1:15 | E5, the headline backtest on US stocks
+\begin{frame}{E5: no rule is significant on US stocks, yet the signal is real}
+\framesubtitle{Slide 14 \textbullet\ Results \textbullet\ M4 \textbullet\ 1:15}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.45\textwidth}
+  \scriptsize\setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}lrr@{}}
+    \toprule
+    Rule & Return \%/yr & Sharpe (SE) \\
+    \midrule
+    S0 Distance & $-0.09$ & $-0.05$ (0.25) \\
+    S1 z-score  & 0.33 & \textbf{0.19} (0.25) \\
+    S2 s-score  & 0.10 & 0.06 (0.25) \\
+    S3 Bertram  & 0.12 & 0.06 (0.25) \\
+    \bottomrule
+  \end{tabular}\\[5pt]
+  \footnotesize\raggedright
+  \begin{itemize}\setlength{\itemsep}{2pt}
+    \item S1 earns about 44 bp per trade before costs
+    \item but 28--45\% of trades never close ($\approx -3\%$ each)
+  \end{itemize}
+\column{0.50\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{fig_e5_cumulative_report}
+\end{columns}
+\pairTakeaway{Only about 8 of 196 candidate pairs pass the test, no more than chance.}
+\end{frame}

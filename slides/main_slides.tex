@@ -1,5 +1,6 @@
-% Final deck: the 14 slides in order (17:30 in total, 3:30 per member). See ../notes/TEAM_PLAN.md section 2.
-% Build with pdflatex from inside this folder (run it twice for the frame numbers).
+% Final deck: 17 short slides in the order of the report (20:00 in total, 4:00 per member).
+% Introduction, Model, Data and method, Results, Conclusion: the same sequence as report/main.tex.
+% See ../notes/TEAM_PLAN.md section 2. Build with pdflatex from inside this folder (run it twice for the frame numbers).
 % Each member's frames live in their own folder (M1/ ... M5/), one frame per slide, one presenter per slide.
 % All numbers on the slides come from report/main.tex and results/.
 \documentclass[aspectratio=169,10pt]{beamer}
@@ -7,19 +8,22 @@
 
 \begin{document}
 
-\input{M1/s01_cover}                  % 1  M1  0:30
-\input{M2/s02_question_data}          % 2  M2  1:00
-\input{M2/s03_engle_granger}          % 3  M2  1:00
-\input{M2/s04_persistence}            % 4  M2  1:30
-\input{M3/s05_ou_model}               % 5  M3  2:00
-\input{M3/s06_estimating_kappa}       % 6  M3  1:30
-\input{M4/s07_adf}                    % 7  M4  1:30
-\input{M4/s08_trading_rules}          % 8  M4  0:45
-\input{M5/s09_bertram}                % 9  M5  2:00
-\input{M1/s10_protocol}               % 10 M1  1:00
-\input{M1/s11_perfect_pair}           % 11 M1  1:00
-\input{M4/s12_us_backtest}            % 12 M4  1:15
-\input{M5/s13_india}                  % 13 M5  1:30
-\input{M1/s14_conclusions}            % 14 M1  1:00
+\input{M1/s01_cover}                  % 1  Introduction        M1  0:45
+\input{M3/s02_ou_model}               % 2  Model               M3  2:15
+\input{M4/s03_adf}                    % 3  Model               M4  1:00
+\input{M2/s04_engle_granger}          % 4  Model               M2  1:00
+\input{M4/s05_trading_rules}          % 5  Model               M4  1:00
+\input{M5/s06_bertram}                % 6  Model               M5  1:15
+\input{M2/s07_data}                   % 7  Data and method     M2  0:45
+\input{M1/s08_protocol}               % 8  Data and method     M1  1:15
+\input{M3/s09_estimating_kappa}       % 9  Results E1          M3  1:45
+\input{M4/s10_adf_power}              % 10 Results E2a         M4  0:45
+\input{M2/s11_size_e2b}               % 11 Results E2b         M2  1:00
+\input{M5/s12_bertram_check}          % 12 Results E3          M5  1:15
+\input{M1/s13_perfect_pair}           % 13 Results E4          M1  1:15
+\input{M4/s14_us_backtest}            % 14 Results E5          M4  1:15
+\input{M5/s15_india}                  % 15 Results E8          M5  1:30
+\input{M2/s16_persistence}            % 16 Results E9          M2  1:15
+\input{M1/s17_conclusions}            % 17 Conclusion          M1  0:45
 
 \end{document}
