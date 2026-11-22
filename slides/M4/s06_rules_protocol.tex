@@ -1,0 +1,34 @@
+% Slide 6 | Rules and method | M4 (Vismay Shanbhag) | 2:00 | the four trading rules and the walk-forward protocol
+\begin{frame}{Four trading rules, tested walk-forward}
+\framesubtitle{Slide 6 \textbullet\ Rules and method \textbullet\ M4 \textbullet\ 2:00}
+\vspace{-2pt}
+\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l@{\ }p{3.7cm}p{4.3cm}p{4.3cm}@{}}
+  \toprule
+  & Rule & Open when & Close when \\
+  \midrule
+  S0 & Distance (Gatev) & gap of normalised prices $>2\sigma$ & the prices cross \\
+  S1 & z-score (Chan) & $|z|>2$ & $|z|<0.5$ \\
+  S2 & s-score (Avellaneda) & $s<-1.25$ long, $s>1.25$ short & $s>-0.50$ long, $s<0.75$ short \\
+  S3 & Bertram bands & $|s|\ge m^*$ & the opposite band \\
+  \bottomrule
+\end{tabular}\\[2pt]
+{\scriptsize $z=X/\sigma_X$, $s=(X-\hat\theta)/\sigma_{eq}$, $X$ = Engle--Granger spread; thresholds fixed in advance}
+\par\vspace{3pt}
+\centering
+\begin{tikzpicture}[
+    box/.style={rectangle, draw=deckAccent, fill=deckSoft, thick, rounded corners=2pt,
+                minimum height=0.6cm, font=\footnotesize, text=deckInk},
+    arr/.style={-{Stealth[length=2mm]}, thick, draw=deckInk!70}]
+  \node[box, minimum width=3.2cm] (F) {Formation, 252 days};
+  \node[box, minimum width=2.8cm, right=0.7cm of F] (T) {Trading, 126 days};
+  \node[box, minimum width=2.2cm, right=0.7cm of T] (R) {Roll by 126};
+  \draw[arr] (F) -- (T); \draw[arr] (T) -- (R);
+\end{tikzpicture}\\[2pt]
+\footnotesize\raggedright
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item parameters come from the formation year only; a signal at close $t$ trades at close $t+1$
+  \item costs: 10 bp (US), 15 bp (India) per stock, per trade
+\end{itemize}
+\pairTakeaway{Peeking at the trading window would lift the s-score Sharpe from about 0 to \textbf{3.6}.}
+\end{frame}

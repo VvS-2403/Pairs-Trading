@@ -1,0 +1,30 @@
+% Slide 4 | Model and E2b | M2 (Nitin Sureshkumar) | 2:00 | Engle--Granger and its size
+\begin{frame}{Engle--Granger: testing a pair, and false pairs}
+\framesubtitle{Slide 4 \textbullet\ Model and E2b \textbullet\ M2 \textbullet\ 2:00}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\column{0.52\textwidth}
+  \small\raggedright
+  \begin{enumerate}\setlength{\itemsep}{3pt}
+    \item regress $a_t=\mu+\beta b_t+u_t$ on the formation year: the residual $\hat u_t$ is the spread
+    \item run ADF on $\hat u_t$ with a stricter critical value, about $-3.34$ instead of $-2.86$
+    \item keep the pair only if it passes in \textbf{both directions}
+  \end{enumerate}
+  Fitting $\beta$ makes unrelated prices look cointegrated (a spurious regression).
+\column{0.44\textwidth}
+  \small\raggedright
+  \textbf{E2b:} 1{,}000 pairs of unrelated random walks; how often is a pair wrongly found?\\[5pt]
+  \footnotesize\setlength{\tabcolsep}{6pt}
+  \begin{tabular}{@{}lr@{}}
+    \toprule
+    Critical values & Wrongly found \\
+    \midrule
+    Plain ADF & \textbf{16.9\%} \\
+    Engle--Granger & \textbf{6.2\%} \\
+    \midrule
+    Intended level & 5\% \\
+    \bottomrule
+  \end{tabular}
+\end{columns}
+\pairTakeaway{Plain ADF calls one unrelated pair in six cointegrated; the stricter test is close to 5\%.}
+\end{frame}

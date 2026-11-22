@@ -19,11 +19,11 @@ Each member's share is the report paragraphs they own and the slides they presen
 ## The split at a glance (each member carries about the same)
 | Member | Report prose | Slides | Viva time |
 | --- | --- | --- | --- |
-| M1 | about 296 words | 1, 8, 13, 17 | 0:45 + 1:15 + 1:15 + 0:45 = 4:00 |
-| M2 | about 288 words | 4, 7, 11, 16 | 1:00 + 0:45 + 1:00 + 1:15 = 4:00 |
-| M3 | about 294 words | 2, 9 | 2:15 + 1:45 = 4:00 |
-| M4 | about 289 words | 3, 5, 10, 14 | 1:00 + 1:00 + 0:45 + 1:15 = 4:00 |
-| M5 | about 278 words | 6, 12, 15 | 1:15 + 1:15 + 1:30 = 4:00 |
+| M1 | about 296 words | 1, 7 | 2:00 + 2:00 = 4:00 |
+| M2 | about 288 words | 4, 8 | 2:00 + 2:00 = 4:00 |
+| M3 | about 294 words | 2, 10 | 2:30 + 1:30 = 4:00 |
+| M4 | about 289 words | 3, 6 | 2:00 + 2:00 = 4:00 |
+| M5 | about 278 words | 5, 9 | 2:00 + 2:00 = 4:00 |
 
 Report words are counted on the current report (about 1,450 words of prose, outside the tables, figures and equations).
 One presenter per slide: no slide is shared or cut in halves.
@@ -37,47 +37,40 @@ One presenter per slide: no slide is shared or cut in halves.
 
 Rule: nobody edits another member's paragraph. Send wording changes to the owner, so the report stays at 4 pages with no references.
 
-## 2. Slides: 17 slides, 20:00 in total, in the same order as the report
-The viva is 20 minutes, so every slide is short (a title, one figure or table, a few words, one takeaway line). The slides follow the report section by section: Introduction, Mathematical model, Data and methodology, Results, Conclusion.
+## 2. Slides: 10 slides, 20:00 in total, two slides per member
+The viva is 20 minutes, so the deck is 10 slides (2 minutes each, 12 pt type), and every slide has exactly one presenter. Each slide pairs a piece of theory with the experiment that tests it, in the order of the report.
 
-| # | Report section | Slide | Presenter | Time |
+| # | Slide | Report section | Presenter | Time |
 | --- | --- | --- | --- | --- |
-| 1 | Introduction | Cover and roadmap | M1 | 0:45 |
-| 2 | Model | The OU model | M3 | 2:15 |
-| 3 | Model | ADF test | M4 | 1:00 |
-| 4 | Model | Engle-Granger | M2 | 1:00 |
-| 5 | Model | Four trading rules | M4 | 1:00 |
-| 6 | Model | Bertram's optimal bands | M5 | 1:15 |
-| 7 | Data and method | Data | M2 | 0:45 |
-| 8 | Data and method | Walk-forward protocol, no look-ahead | M1 | 1:15 |
-| 9 | Results | Estimating kappa (E1) | M3 | 1:45 |
-| 10 | Results | What ADF can detect (E2a) | M4 | 0:45 |
-| 11 | Results | Plain ADF finds false pairs (E2b) | M2 | 1:00 |
-| 12 | Results | Bertram's bands vs daily checks (E3) | M5 | 1:15 |
-| 13 | Results | What would a perfect pair earn? (E4) | M1 | 1:15 |
-| 14 | Results | Headline backtest on US stocks (E5) | M4 | 1:15 |
-| 15 | Results | India (E8) | M5 | 1:30 |
-| 16 | Results | Do selected pairs stay pairs? (E9) | M2 | 1:15 |
-| 17 | Conclusion | Conclusions | M1 | 0:45 |
+| 1 | Cover, idea and roadmap | Introduction | M1 | 2:00 |
+| 2 | OU model and estimating kappa (E1) | Model, Results | M3 | 2:30 |
+| 3 | ADF test and what one year can detect (E2a) | Model, Results | M4 | 2:00 |
+| 4 | Engle-Granger and false pairs (E2b) | Model, Results | M2 | 2:00 |
+| 5 | Bertram's bands and daily checking (E3) | Model, Results | M5 | 2:00 |
+| 6 | The four trading rules and the walk-forward protocol | Model, Data and method | M4 | 2:00 |
+| 7 | What would a perfect pair earn? (E4) | Results | M1 | 2:00 |
+| 8 | US backtest (E5) | Results | M2 | 2:00 |
+| 9 | India (E8) | Results | M5 | 2:00 |
+| 10 | Do selected pairs stay pairs? (E9) and conclusions | Results, Conclusion | M3 | 1:30 |
 
-**Speaking order:** M1, M3, M4, M2, M4, M5, M2, M1, M3, M4, M2, M5, M1, M4, M5, M2, M1.
-Because the slides follow the report's order, speakers alternate; each one still owns whole slides (no slide is shared) and 4:00 in total.
+**Speaking order:** M1, M3, M4, M2, M5, M4, M1, M2, M5, M3.
+Every member presents exactly two slides and 4:00. Within each slide the theory comes first and its experiment second, as in the report's "Can we measure and detect mean reversion?" paragraph.
 
 Each member answers the questions on their own topic. Their viva notes are in `notes/` (M1 has not written theirs yet).
 
 ### The deck is a LaTeX Beamer project in `slides/`
 Built the way the SEIRD project's deck was built (see `slides/README.md`). It replaces the earlier deck on claude.ai, which no longer matches the plan.
-- **One frame file per slide**, in the folder of the member who presents it: `slides/M1/` (slides 1, 8, 13, 17), `M2/` (4, 7, 11, 16), `M3/` (2, 9), `M4/` (3, 5, 10, 14), `M5/` (6, 12, 15).
+- **One frame file per slide**, in the folder of the member who presents it: `slides/M1/` (slides 1, 7), `M2/` (4, 8), `M3/` (2, 10), `M4/` (3, 6), `M5/` (5, 9).
 - **`slides/deck_style.tex`** holds the look (colours, frame title, footer, takeaway box) so all slides match.
 - **Preview your own slides:** compile `slides/Mn/Mn_standalone.tex` with pdflatex from inside your folder (twice).
-- **Full deck:** compile `slides/main_slides.tex` from the `slides/` folder (twice). `slides/main_slides.pdf` is the compiled 17-slide deck.
+- **Full deck:** compile `slides/main_slides.tex` from the `slides/` folder (twice). `slides/main_slides.pdf` is the compiled 10-slide deck.
 - Figures come from `figs/`, and every number on a slide comes from the report or `results/`.
 - Edit only your own files. If you change a number in the report, check your slide.
 
 ## What changed from the original plan (and why)
 - **The code part was removed from the split** (14 Nov): the plan covers the report and the slides only.
 - **No shared slides.** India (slide 15) and E9 (slide 16) are separate slides, one per presenter, as are the protocol (8) and the perfect pair (13).
-- **Slides now follow the report's order and fit 20 minutes** (15 Nov): 17 short slides, 4:00 per member. The theory slides (ADF, Engle-Granger, Bertram) are separate from their experiment slides (E2a, E2b, E3), as in the report.
+- **The deck was cut to 10 slides** (22 Nov): two slides per member, 4:00 each, 12 pt type so it is readable. Theory and its experiment share a slide (OU with E1, ADF with E2a, Engle-Granger with E2b, Bertram with E3), and the rules and protocol share one slide. The slides keep the report's order except that the four trading rules now sit with the protocol, just before the results.
 - **The deck is now LaTeX Beamer** (`slides/`), one frame file per slide, instead of the claude.ai deck.
 - **The individual-trades paragraph of the report is M1's.** In the original plan Table 1 was co-owned by M4 and M1.
 
